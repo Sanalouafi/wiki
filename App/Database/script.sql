@@ -1,0 +1,46 @@
+CREATE DATABASE wiki;
+
+CREATE TABLE role (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    role_name VARCHAR(255)
+);
+
+CREATE TABLE User (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    fullname VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255),
+    photo VARCHAR(255),
+    role_id INT,
+    FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE category (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    category_name VARCHAR(255)
+);
+
+CREATE TABLE wiki (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255),
+    content VARCHAR(255),
+    statut VARCHAR(255),
+    image VARCHAR(255),
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    category_id INT,
+    user_id INT,
+    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE tag (
+    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tag_name VARCHAR(255)
+);
+
+CREATE TABLE tag_wiki (
+    tag_id INT,
+    wiki_id INT,
+    FOREIGN KEY (tag_id) REFERENCES tag(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (wiki_id) REFERENCES wiki(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
