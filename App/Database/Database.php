@@ -1,31 +1,34 @@
 <?php
 
-namespace App\database;
+namespace App\Database;
 
 require '../../vendor/autoload.php';
 
-use Dotenv\Dotenv;
+use PDO;
+use PDOException;
+
+
 
 class Database
 {
-    private static $pdo;
+    private static $conx;
 
     public static function connect()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
         $dotenv->load();
 
-        $dsn = "mysql:host={$_ENV['DB_SERVERNAME']};dbname={$_ENV['DB_NAME']};charset=utf8mb4";
+        $server = $_ENV['DB_SERVERNAME'];
         $username = $_ENV['DB_USERNAME'];
-        $password = $_ENV['DB_PASSWORD'];
+        $dbpassword = $_ENV['DB_PASSWORD'];
+        $dbname = $_ENV['DB_NAME'];
 
-        
         try {
-            self::$pdo = new \PDO($dsn, $username, $password);
-        } catch (\PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
+            self::$conx = new PDO("mysql:host=$server;dbname=$dbname", $username, $dbpassword);
+            self::$conx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die('CONNEXION FAILED: ' . $e->getMessage());
         }
-
-        return self::$pdo;
+        return self::$conx;
     }
 }
