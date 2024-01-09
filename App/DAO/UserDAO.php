@@ -3,6 +3,7 @@
 namespace App\DAO;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
+
 use App\Database\Database;
 
 class UserDAO
@@ -48,73 +49,65 @@ class UserDAO
     }
 
     public static function registerUser($fullname, $email, $password, $photo, $roleId)
-{
-    try {
-        $conn = Database::connect();
+    {
+        try {
+            $conn = Database::connect();
 
-        $existingUser = self::getUserByEmail($email);
+            $existingUser = self::getUserByEmail($email);
 
-        if ($existingUser) {
-            throw new \Exception("Email already exists. Please choose a different email.");
-        }
+            if ($existingUser) {
+                throw new \Exception("Email already exists. Please choose a different email.");
+            }
 
-        $conn->beginTransaction();
+            $conn->beginTransaction();
 
-        $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`, `role_id`) 
+            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`, `role_id`) 
                 VALUES (?, ?, ?, ?, ?)";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $fullname, \PDO::PARAM_STR);
-        $stmt->bindParam(2, $email, \PDO::PARAM_STR);
-        $stmt->bindParam(3, $password, \PDO::PARAM_STR);
-        $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
-        $stmt->bindParam(5, $roleId, \PDO::PARAM_INT);
-        $stmt->execute();
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1, $fullname, \PDO::PARAM_STR);
+            $stmt->bindParam(2, $email, \PDO::PARAM_STR);
+            $stmt->bindParam(3, $password, \PDO::PARAM_STR);
+            $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
+            $stmt->bindParam(5, $roleId, \PDO::PARAM_INT);
+            $stmt->execute();
 
-        $lastInsertedId = $conn->lastInsertId();
-
-        self::updateUserRole($lastInsertedId, $roleId, $conn);
-
-        $conn->commit();
-
-    } catch (\PDOException $e) {
-        $conn->rollBack();
-        die("Error registering user: " . $e->getMessage());
-    } catch (\Exception $e) {
-        $conn->rollBack();
-        die($e->getMessage());
-    } finally {
-        if ($conn) {
-            $conn = null;
+            $conn->commit();
+        } catch (\PDOException $e) {
+            $conn->rollBack();
+            die("Error registering user: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
         }
     }
-}
 
-public static function loginUser($email, $password)
-{
-    try {
-        $conn = Database::connect();
+    public static function loginUser($email, $password)
+    {
+        try {
+            $conn = Database::connect();
 
-        $sql = "SELECT * FROM `user` WHERE `email` = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $email, \PDO::PARAM_STR);
-        $stmt->execute();
+            $sql = "SELECT * FROM `user` WHERE `email` = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1, $email, \PDO::PARAM_STR);
+            $stmt->execute();
 
-        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
-        } else {
-            return false;
-        }
-    } catch (\PDOException $e) {
-        die("Error logging in user: " . $e->getMessage());
-    } finally {
-        if ($conn) {
-            $conn = null;
+            if ($user && password_verify($password, $user['password'])) {
+                return $user;
+            } else {
+                return false;
+            }
+        } catch (\PDOException $e) {
+            die("Error logging in user: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
         }
     }
-}
 
 
     public static function getUserByEmail($email)
@@ -169,7 +162,6 @@ public static function loginUser($email, $password)
             self::updateUserRole($userId, $roleId, $conn);
 
             $conn->commit();
-
         } catch (\PDOException $e) {
             $conn->rollBack();
             die("Error editing user: " . $e->getMessage());
@@ -193,7 +185,6 @@ public static function loginUser($email, $password)
             $stmtDeleteUser->execute([$userId]);
 
             $conn->commit();
-
         } catch (\PDOException $e) {
             $conn->rollBack();
             die("Error deleting user: " . $e->getMessage());
@@ -204,4 +195,3 @@ public static function loginUser($email, $password)
         }
     }
 }
-?>
