@@ -2,8 +2,7 @@
 
 namespace App\DAO;
 
-require_once '/../../vendor/autoload.php';
-
+require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Database\Database;
 
 class UserDAO
@@ -91,28 +90,32 @@ class UserDAO
     }
 }
 
-    public static function loginUser($email, $password)
-    {
-        try {
-            $conn = Database::connect();
+public static function loginUser($email, $password)
+{
+    try {
+        $conn = Database::connect();
 
-            $sql = "SELECT * FROM `user` WHERE `email` = ? AND `password` = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $email, \PDO::PARAM_STR);
-            $stmt->bindParam(2, $password, \PDO::PARAM_STR);
-            $stmt->execute();
+        $sql = "SELECT * FROM `user` WHERE `email` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $email, \PDO::PARAM_STR);
+        $stmt->execute();
 
-            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
+        if ($user && password_verify($password, $user['password'])) {
             return $user;
-        } catch (\PDOException $e) {
-            die("Error logging in user: " . $e->getMessage());
-        } finally {
-            if ($conn) {
-                $conn = null;
-            }
+        } else {
+            return false;
+        }
+    } catch (\PDOException $e) {
+        die("Error logging in user: " . $e->getMessage());
+    } finally {
+        if ($conn) {
+            $conn = null;
         }
     }
+}
+
 
     public static function getUserByEmail($email)
     {

@@ -13,7 +13,7 @@ $router->setRoutes([
 
     ],
     'POST' => [
-        'signup' => ['AuthController', 'registerUser'],
+        'registerUser' => ['AuthController', 'registerUser'],
         'signin' => ['AuthController', 'authenticateUser'],
 
     ],

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use App\DAO\UserDAO;
 
@@ -86,13 +86,11 @@ class UserModel
     public static function getUserById($userId)
     {
         return UserDAO::getUserById($userId);
-
-      
     }
 
     public static function registerUser($fullname, $email, $password, $photo, $roleId)
     {
-        UserDAO::registerUser($fullname, $email, $password, $photo, $roleId);
+        UserDAO::registerUser($fullname, $email, password_hash($password, PASSWORD_DEFAULT), $photo, $roleId);
     }
 
     public static function loginUser($email, $password)
@@ -103,8 +101,6 @@ class UserModel
     public static function getUserByEmail($email)
     {
         return UserDAO::getUserByEmail($email);
-
-       
     }
 
     public static function editUser($userId, $fullname, $email, $password, $photo, $roleId)
