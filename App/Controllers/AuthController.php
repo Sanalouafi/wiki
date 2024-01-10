@@ -27,7 +27,7 @@ class AuthController
         $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : null;
         $password = isset($_POST['password']) ? htmlspecialchars($_POST['password']) : null;
         $roleId = 2;
-
+        $status='allow';
         if (empty($name) || empty($email) || empty($password)) {
             $error = "All fields are required.";
             include '../../views/auth/signUp.php';
@@ -44,7 +44,7 @@ class AuthController
             }
         }
 
-        $registerUser = UserModel::registerUser($name, $email, $password, $photo, $roleId);
+        $registerUser = UserModel::registerUser($name, $email, $password, $photo,$status, $roleId);
         if ($registerUser) {
             header("Location: signin");
             exit();

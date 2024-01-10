@@ -110,7 +110,14 @@ class UserDAO
         }
     }
 
-
+    public static function logout()
+    {
+        session_start();  
+        session_unset();  
+        session_destroy(); 
+        session_regenerate_id(true);
+       
+    }
 
     public static function getUserByEmail($email)
     {
@@ -141,7 +148,7 @@ class UserDAO
         $stmtUpdateRole->execute([$roleId, $userId]);
     }
 
-    public static function editUser($userId, $fullname, $email, $password, $photo, $roleId)
+    public static function editUser($userId, $fullname, $email, $password, $photo, $status, $roleId)
     {
         try {
             $conn = Database::connect();
@@ -149,7 +156,7 @@ class UserDAO
             $conn->beginTransaction();
 
             $sql = "UPDATE `user` 
-                    SET `fullname` = ?, `email` = ?, `password` = ?, `photo` = ?, `role_id` = ? 
+                    SET `fullname` = ?, `email` = ?, `password` = ?, `photo` = ?, `status` = ?,`role_id` = ? 
                     WHERE `id` = ?";
 
             $stmt = $conn->prepare($sql);
@@ -157,8 +164,9 @@ class UserDAO
             $stmt->bindParam(2, $email, \PDO::PARAM_STR);
             $stmt->bindParam(3, $password, \PDO::PARAM_STR);
             $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
-            $stmt->bindParam(5, $roleId, \PDO::PARAM_INT);
-            $stmt->bindParam(6, $userId, \PDO::PARAM_INT);
+            $stmt->bindParam(5, $photo, \PDO::PARAM_STR);
+            $stmt->bindParam(6, $status, \PDO::PARAM_INT);
+            $stmt->bindParam(7, $userId, \PDO::PARAM_INT);
             $stmt->execute();
 
             self::updateUserRole($userId, $roleId, $conn);
@@ -217,5 +225,28 @@ class UserDAO
                 $conn = null;
             }
         }
+    }
+
+    public static function updateStatus($userId, $newStatus)
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "UPDATE `user` SET `status` = ? WHERE `id` = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1, $newStatus, \PDO::PARAM_STR);
+            $stmt->bindParam(2, $userId, \PDO::PARAM_INT);
+            $stmt->execute();
+
+            return true;
+        } catch (\PDOException $e) {
+            die("Error updating status: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+
+        return false;
     }
 }

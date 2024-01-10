@@ -77,7 +77,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="../../auth/logout.php" class="dropdown-item">Log Out</a>
+                        <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
             </div>
@@ -103,16 +103,23 @@
                                 <tbody id="tableBody" data-aos="fade-right" data-aos-duration="1500">
                                     <?php foreach ($authors as $author) : ?>
                                         <tr>
-                                            <td> <img class="rounded-circle" src="<?= $author['photo']?>" alt="" style="width: 40px; height: 40px;">
+                                            <td> <img class="rounded-circle" src="<?= $author['photo'] ?>" alt="" style="width: 40px; height: 40px;">
                                             </td>
-                                            <td><?= $author['fullname']?></td>
-                                            <td><?= $author['email']?></td>
-                                            <td>autorise</td>
+                                            <td><?= $author['fullname'] ?></td>
+                                            <td><?= $author['email'] ?></td>
+                                            <td><?= $author['status'] ?></td>
 
                                             <td>
-                                                <a href="delete.php?id=" class="link-danger">
-                                                    <i class='bx bxs-lock fs-6 '></i>
-                                                </a>
+                                                <?php
+                                                if ($author['status'] == 'allow') { ?>
+                                                    <a href="updateStatus?id=<?= $author['id'] ?>&status=deny" class="link-danger">
+                                                        <i class='bx bxs-lock fs-6'></i>
+                                                    </a>
+                                                <?php } else { ?>
+                                                    <a href="updateStatus?id=<?= $author['id'] ?>&status=allow">
+                                                        <i class='bx bxs-lock fs-6'></i>
+                                                    </a>
+                                                <?php } ?>
                                             </td>
 
                                         </tr>

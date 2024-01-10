@@ -15,6 +15,8 @@ $router->setRoutes([
         'categoryAdmin' => ['CategoryController', 'categoryAdmin'],
         'deleteCat' => ['CategoryController', 'deleteCat'],
         'deleteTag' => ['TagController', 'deleteTag'],
+        'updateStatus' => ['UserController', 'updateStatus'],
+        'logout' => ['UserController', 'logout'],
         
         
         
