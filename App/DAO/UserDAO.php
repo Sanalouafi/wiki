@@ -48,7 +48,7 @@ class UserDAO
         }
     }
 
-    public static function registerUser($fullname, $email, $password, $photo, $roleId)
+    public static function registerUser($fullname, $email, $password, $photo, $status, $roleId)
     {
         try {
             $conn = Database::connect();
@@ -61,15 +61,16 @@ class UserDAO
 
             $conn->beginTransaction();
 
-            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`, `role_id`) 
-                VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`,`status`, `role_id`) 
+                VALUES (?, ?, ?, ?,?, ?)";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(1, $fullname, \PDO::PARAM_STR);
             $stmt->bindParam(2, $email, \PDO::PARAM_STR);
             $stmt->bindParam(3, $password, \PDO::PARAM_STR);
             $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
-            $stmt->bindParam(5, $roleId, \PDO::PARAM_INT);
+            $stmt->bindParam(5, $status, \PDO::PARAM_STR);
+            $stmt->bindParam(6, $roleId, \PDO::PARAM_INT);
             $stmt->execute();
 
             $conn->commit();
@@ -108,6 +109,7 @@ class UserDAO
             }
         }
     }
+
 
 
     public static function getUserByEmail($email)
@@ -188,6 +190,28 @@ class UserDAO
         } catch (\PDOException $e) {
             $conn->rollBack();
             die("Error deleting user: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
+
+    public static function getUsersByRoleId($roleId)
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT * FROM `user` WHERE `role_id` = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(1, $roleId, \PDO::PARAM_INT);
+            $stmt->execute();
+
+            $users = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $users;
+        } catch (\PDOException $e) {
+            die("Error getting users by role ID: " . $e->getMessage());
         } finally {
             if ($conn) {
                 $conn = null;

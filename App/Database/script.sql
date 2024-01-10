@@ -11,6 +11,7 @@ CREATE TABLE User (
     email VARCHAR(255),
     password VARCHAR(255),
     photo VARCHAR(255),
+    status VARCHAR(255),
     role_id INT,
     FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -24,7 +25,7 @@ CREATE TABLE wiki (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     content VARCHAR(255),
-    statut VARCHAR(255),
+    status VARCHAR(255),
     image VARCHAR(255),
     create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     category_id INT,

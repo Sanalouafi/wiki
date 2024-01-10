@@ -10,11 +10,22 @@ $router->setRoutes([
     'GET' => [
         'signup' => ['AuthController', 'signup'],
         'signin' => ['AuthController', 'login'],
-
+        'dashboard' => ['AdminController', 'dashboard'],
+        'author' => ['AdminController', 'author'],
+        'categoryAdmin' => ['CategoryController', 'categoryAdmin'],
+        'deleteCat' => ['CategoryController', 'deleteCat'],
+        'deleteTag' => ['TagController', 'deleteTag'],
+        
+        
+        
     ],
     'POST' => [
         'registerUser' => ['AuthController', 'registerUser'],
         'signin' => ['AuthController', 'authenticateUser'],
+        'addCategory' => ['CategoryController', 'addCategory'],
+        'editCategory' => ['CategoryController', 'editCategory'],
+        'addTag' => ['TagController', 'addTag'],
+        'editTag' => ['TagController', 'editTag'],
 
     ],
 ]);

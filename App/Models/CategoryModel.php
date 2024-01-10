@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Model;
-
+namespace App\Models;
+require_once __DIR__ . '/../../vendor/autoload.php';
 use App\DAO\CategoryDAO;
 
 class CategoryModel

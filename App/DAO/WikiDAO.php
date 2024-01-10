@@ -101,7 +101,7 @@ class WikiDAO
             $conn->beginTransaction();
 
             $sql = "UPDATE `wiki` 
-                    SET `title` = ?, `content` = ?, `statut` = ?, `image` = ?, `category_id` = ?, `user_id` = ? 
+                    SET `title` = ?, `content` = ?, `status` = ?, `image` = ?, `category_id` = ?, `user_id` = ? 
                     WHERE `id` = ?";
 
             $stmt = $conn->prepare($sql);

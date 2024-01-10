@@ -112,4 +112,10 @@ class UserModel
     {
         UserDAO::deleteUser($userId);
     }
+
+    public static function getAuthors($roleId)
+    {
+
+        return UserDAO::getUsersByRoleId($roleId);
+    }
 }
