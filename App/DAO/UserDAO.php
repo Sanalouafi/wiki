@@ -61,22 +61,18 @@ class UserDAO
 
             $conn->beginTransaction();
 
-            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`,`status`, `role_id`) 
-                VALUES (?, ?, ?, ?,?, ?)";
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql = "INSERT INTO `user` (`fullname`, `email`, `password`, `photo`, `status`, `role_id`) 
+                VALUES (?, ?, ?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $fullname, \PDO::PARAM_STR);
-            $stmt->bindParam(2, $email, \PDO::PARAM_STR);
-            $stmt->bindParam(3, $password, \PDO::PARAM_STR);
-            $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
-            $stmt->bindParam(5, $status, \PDO::PARAM_STR);
-            $stmt->bindParam(6, $roleId, \PDO::PARAM_INT);
-            $stmt->execute();
+            $stmt->execute([$fullname, $email, $hashedPassword, $photo, $status, $roleId]);
 
             $conn->commit();
         } catch (\PDOException $e) {
             $conn->rollBack();
-            die("Error registering user: " . $e->getMessage());
+            throw new \Exception("Error registering user: " . $e->getMessage());
         } finally {
             if ($conn) {
                 $conn = null;
@@ -112,11 +108,9 @@ class UserDAO
 
     public static function logout()
     {
-        session_start();  
-        session_unset();  
-        session_destroy(); 
+        session_unset();
+        session_destroy();
         session_regenerate_id(true);
-       
     }
 
     public static function getUserByEmail($email)
@@ -140,71 +134,6 @@ class UserDAO
             }
         }
     }
-
-    private static function updateUserRole($userId, $roleId, $conn)
-    {
-        $sqlUpdateRole = "UPDATE `user` SET `role_id` = ? WHERE `id` = ?";
-        $stmtUpdateRole = $conn->prepare($sqlUpdateRole);
-        $stmtUpdateRole->execute([$roleId, $userId]);
-    }
-
-    public static function editUser($userId, $fullname, $email, $password, $photo, $status, $roleId)
-    {
-        try {
-            $conn = Database::connect();
-
-            $conn->beginTransaction();
-
-            $sql = "UPDATE `user` 
-                    SET `fullname` = ?, `email` = ?, `password` = ?, `photo` = ?, `status` = ?,`role_id` = ? 
-                    WHERE `id` = ?";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(1, $fullname, \PDO::PARAM_STR);
-            $stmt->bindParam(2, $email, \PDO::PARAM_STR);
-            $stmt->bindParam(3, $password, \PDO::PARAM_STR);
-            $stmt->bindParam(4, $photo, \PDO::PARAM_STR);
-            $stmt->bindParam(5, $photo, \PDO::PARAM_STR);
-            $stmt->bindParam(6, $status, \PDO::PARAM_INT);
-            $stmt->bindParam(7, $userId, \PDO::PARAM_INT);
-            $stmt->execute();
-
-            self::updateUserRole($userId, $roleId, $conn);
-
-            $conn->commit();
-        } catch (\PDOException $e) {
-            $conn->rollBack();
-            die("Error editing user: " . $e->getMessage());
-        } finally {
-            if ($conn) {
-                $conn = null;
-            }
-        }
-    }
-
-    public static function deleteUser($userId)
-    {
-        try {
-            $conn = Database::connect();
-
-            $conn->beginTransaction();
-
-            // Delete from user table
-            $sqlDeleteUser = "DELETE FROM `user` WHERE `id` = ?";
-            $stmtDeleteUser = $conn->prepare($sqlDeleteUser);
-            $stmtDeleteUser->execute([$userId]);
-
-            $conn->commit();
-        } catch (\PDOException $e) {
-            $conn->rollBack();
-            die("Error deleting user: " . $e->getMessage());
-        } finally {
-            if ($conn) {
-                $conn = null;
-            }
-        }
-    }
-
     public static function getUsersByRoleId($roleId)
     {
         try {

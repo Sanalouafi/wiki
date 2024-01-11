@@ -17,6 +17,7 @@ $router->setRoutes([
         'deleteTag' => ['TagController', 'deleteTag'],
         'updateStatus' => ['UserController', 'updateStatus'],
         'logout' => ['UserController', 'logout'],
+        'profileAdmin' => ['UserController', 'profileAdmin'],
         
         
         

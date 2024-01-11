@@ -34,7 +34,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav style="background: #28323A;" class="navbar bg-light navbar-light">
                 <a href="dashboard.php" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary">DASHMIN</h3>
+                    <h3 class="text-primary">WIKI</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -76,7 +76,7 @@
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
+                        <a href="profileAdmin?id=<?= $_SESSION['id']?>" class="dropdown-item">My Profile</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>

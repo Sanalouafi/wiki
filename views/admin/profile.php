@@ -20,12 +20,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="/wiki/public/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="/wiki/public/css/dashboard.css" rel="stylesheet">
+    <link href="/wiki/public/css/profile.css" rel="stylesheet">
 </head>
 
 <body>
     <style>
         .cube {
             height: 10vh !important;
+
+        }
+
+        .profile h4,
+        .email {
+            color: #C9BE9B !important;
 
         }
     </style>
@@ -69,14 +76,14 @@
             </a>
 
             <div class="navbar-nav align-items-center ms-auto">
-                
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="<?= $_SESSION['photo'] ?>" alt="" style="width: 40px; height: 40px;">
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="profileAdmin?id=<?= $_SESSION['id']?>" class="dropdown-item">My Profile</a>
+                        <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -85,63 +92,72 @@
 
 
         <div class="container-fluid pt-4 px-4" id="content-container">
-            <div class="row g-4">
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-line fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Today Sale</p>
-                            <h5 class="mb-0">$1234</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Total Sale</p>
-                            <h5 class="mb-0">$1234</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-area fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Today Revenue</p>
-                            <h5 class="mb-0">$1234</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xl-3">
-                    <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                        <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                        <div class="ms-3">
-                            <p class="mb-2">Total Revenue</p>
-                            <h5 class="mb-0">$1234</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
 
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="container">
+                            <div class="main-body">
+                                <div class="row gutters-sm">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card bg-dark">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-column align-items-center text-center">
+                                                    <img src="<?= $dataUser['photo'] ?>" alt="Admin" class="rounded-circle" width="150">
+                                                    <div class="profile mt-3">
+                                                        <h4><?= $dataUser['fullname'] ?></h4>
+                                                        <p class="email text-muted font-size-sm"><?= $dataUser['email'] ?></p>
 
-                    </div>
-                </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card mb-3">
+                                            <div class="card bg-dark  ">
 
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-6 col-xl-6">
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">Full Name</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <input type="text" name="fullname" class="form-control" value="<?= $dataUser['fullname'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">Email</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <input type="email" name="email" class="form-control" value="<?= $dataUser['email'] ?>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">Password</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <input type="password" name="password" class="form-control" value="<?= $dataUser['password'] ?>">
+                                                        </div>
+                                                    </div>
 
-                        </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3"></div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                        <div class="col-sm-12 col-md-6 col-xl-6">
+                                    </div>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,15 +187,15 @@
     });
 </script>
 <script>
-    
-// Sidebar Toggler
-document
-  .querySelector(".sidebar-toggler")
-  .addEventListener("click", function () {
-    document.querySelector(".sidebar").classList.toggle("open");
-    document.querySelector(".content").classList.toggle("open");
-    return false;
-  });
+    // Sidebar Toggler
+    document
+        .querySelector(".sidebar-toggler")
+        .addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.toggle("open");
+            document.querySelector(".content").classList.toggle("open");
+            return false;
+        });
+    AOS.init();
 </script>
 
 </html>

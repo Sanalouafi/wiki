@@ -12,6 +12,7 @@ a {
 
 p,
 h3,
+h4,
 a,
 h6 {
     color: var(--primary);
@@ -50,6 +51,7 @@ small {
     transition: 0.5s;
     z-index: 999;
 }
+
 
 .content {
     margin-left: 250px;

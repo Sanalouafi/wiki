@@ -103,7 +103,7 @@ class UserModel
 
     public static function registerUser($fullname, $email, $password, $photo, $status, $roleId)
     {
-        UserDAO::registerUser($fullname, $email, password_hash($password, PASSWORD_DEFAULT), $photo, $status, $roleId);
+        return UserDAO::registerUser($fullname, $email, $password, $photo, $status, $roleId);
     }
 
     public static function loginUser($email, $password)
@@ -118,16 +118,6 @@ class UserModel
     public static function getUserByEmail($email)
     {
         return UserDAO::getUserByEmail($email);
-    }
-
-    public static function editUser($userId, $fullname, $email, $password, $photo, $status, $roleId)
-    {
-        UserDAO::editUser($userId, $fullname, $email, $password, $photo, $status, $roleId);
-    }
-
-    public static function deleteUser($userId)
-    {
-        UserDAO::deleteUser($userId);
     }
 
     public static function getAuthors($roleId)

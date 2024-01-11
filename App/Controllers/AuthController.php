@@ -27,31 +27,23 @@ class AuthController
         $email = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : null;
         $password = isset($_POST['password']) ? htmlspecialchars($_POST['password']) : null;
         $roleId = 2;
-        $status='allow';
-        if (empty($name) || empty($email) || empty($password)) {
-            $error = "All fields are required.";
-            include '../../views/auth/signUp.php';
-            exit();
-        }
+        $status = 'allow';
 
-        $photo = null;
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
             $photo = $this->handleImageUpload($_FILES['photo']);
             if (!$photo) {
                 $error = "Error uploading file.";
                 include '../../views/auth/signUp.php';
-                exit();
+                exit(); // Exit if there's an error
             }
+        } else {
+            $photo = null;
         }
 
-        $registerUser = UserModel::registerUser($name, $email, $password, $photo,$status, $roleId);
-        if ($registerUser) {
-            header("Location: signin");
-            exit();
-        } else {
-            include '../../views/auth/signUp.php';
-            exit();
-        }
+        UserModel::registerUser($name, $email, $password, $photo, $status, $roleId);
+
+        header("Location: signin");
+        exit(); // Make sure to exit after the header
     }
 
 
@@ -60,8 +52,12 @@ class AuthController
         $uploadDir = '/wiki/public/images/';
         $uploadFile = $uploadDir . basename($file['name']);
 
+        // Create the directory if it doesn't exist
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
         if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
-            echo "Image uploaded successfully: " . $uploadFile;
             return $uploadFile;
         } else {
             echo "Error uploading file.";

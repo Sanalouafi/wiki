@@ -5,9 +5,15 @@ namespace App\Controllers;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Models\UserModel;
-
+session_start();
 class UserController
 {
+    public function profileAdmin(){
+        $id=$_GET['id'];
+        $dataUser=UserModel::getUserById($id);
+        include '../../views/admin/profile.php';
+        exit();
+    }
 
     public function updateStatus()
     {
