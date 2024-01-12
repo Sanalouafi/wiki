@@ -1,3 +1,6 @@
+<?php
+if (isset($_SESSION['role_id']) && $_SESSION['id'] == 2) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -283,3 +286,7 @@
 </body>
 
 </html>
+<?php } else{
+    header('Location:index');
+    }
+    ?>
