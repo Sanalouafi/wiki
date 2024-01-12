@@ -158,4 +158,7 @@ class WikiModel
     public static function getLastWikies(){
         return WikiDAO::getLastWikies();
     }
+    public static function search($word){
+        return WikiDAO::search($word);
+    }
 }

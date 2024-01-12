@@ -50,8 +50,7 @@
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
-                        <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
+                                    <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -84,11 +83,13 @@
                                     <img src="<?= $authorWiki['image'] ?>" class="img-fluid" alt="">
                                     <a href="detailWiki?id=<?= $authorWiki['id']; ?>" class="link-preview" title="details"><i class="bx bx-link"></i></a>
                                     <a href="editWiki?id=<?= $authorWiki['id']; ?>" class="link-details " title="More Details"><i class="bx bx-pen"></i></a>
+                                    <a href="deleteWiki?id=<?= $authorWiki['id']; ?>" class="link-details " title="More Details"><i class="bx bx-trash"></i></a>
                                 </figure>
 
                                 <div class="portfolio-info">
                                     <h4><a href="detailWiki?id=<?= $authorWiki['id']; ?>"><?= $authorWiki['title'] ?></a></h4>
                                     <p><?= $authorWiki['content'] ?></p>
+
                                 </div>
                             </div>
                         </div>
@@ -175,7 +176,7 @@
     <script src="/wiki/public/assets/waypoints/noframework.waypoints.js"></script>
     <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
-    <script src="/wiki/public//js/main.js"></script>
+    <script src="/wiki/public/js/main.js"></script>
 
 </body>
 

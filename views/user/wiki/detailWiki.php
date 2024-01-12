@@ -18,7 +18,7 @@
   <link href="/wiki/public/assets/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link href="/wiki/public/css/style.css" rel="stylesheet">
-  \
+  
 </head>
 
 <body>
@@ -50,7 +50,6 @@
             <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-            <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
             <a href="logout" class="dropdown-item">Log Out</a>
           </div>
         </div>
@@ -104,7 +103,7 @@
             <div class="portfolio-description">
               <h2><?php echo $detailWiki['title'] ?></h2>
               <p>
-              <?php echo $detailWiki['content'] ?>              </p>
+                <?php echo $detailWiki['content'] ?> </p>
             </div>
           </div>
 
@@ -121,35 +120,25 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Lumia</h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
+            <h3>Wiki</h3>
           </div>
 
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="home">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="home#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="home#services">Categories</a></li>
+
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
+            <h4>Our categorie</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <?php foreach ($lastCategories as $lastCat) : ?>
+                <li><i class="bx bx-chevron-right"></i> <a href="home#services"><?= $lastCat['category_name'] ?></a></li>
+              <?php endforeach; ?>
             </ul>
           </div>
 
@@ -167,7 +156,7 @@
 
     <div class="container d-md-flex py-4">
 
-     
+
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -188,7 +177,7 @@
   <script src="/wiki/public/assets/waypoints/noframework.waypoints.js"></script>
   <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
-  <script src="/wiki/public//js/main.js"></script>
+  <script src="/wiki/public/js/main.js"></script>
 
 </body>
 

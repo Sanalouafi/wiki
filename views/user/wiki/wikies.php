@@ -18,7 +18,7 @@
     <link href="/wiki/public/assets/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <link href="/wiki/public/css/style.css" rel="stylesheet">
-    \
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -50,8 +50,7 @@
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
-                        <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
+                                    <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -68,13 +67,17 @@
         <section id="portfolio" class="portfolio">
             <div class="container">
 
-                <div class="section-title">
+                <div class="section-title mt-5">
                     <h2>Explore Our Wikis</h2>
                     <p>Discover a variety of topics and insights created by our community</p>
-
+                    <form class="d-none d-md-flex ms-4 justify-content-center">
+                        <input class="form-control bg-light border-1" style="width:50%; margin:5% auto;" type="text" id="searchInput" placeholder="Enter search term">
+                    </form>
+                </div>
+                <div class="row portfolio-container" id="searchResults">
                 </div>
 
-                <div class="row portfolio-container">
+                <div class="row portfolio-container" id="otherdiv">
                     <?php foreach ($allowWikies as $allowWiki) : ?>
 
 
@@ -86,8 +89,8 @@
                                 </figure>
 
                                 <div class="portfolio-info">
-                                    <h4><a href="detailWiki?id=<?= $allowWiki['id']; ?>"><?= $allowWiki['title'] ?></a></h4>
-                                    <p><?= $allowWiki['content'] ?></p>
+                                    <h4 class="title"><a href="detailWiki?id=<?= $allowWiki['id']; ?>"><?= $allowWiki['title'] ?></a></h4>
+                                    <p class="content"><?= $allowWiki['content'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -100,69 +103,7 @@
 
 
     </main>
-    <footer id="footer">
-
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6 footer-contact">
-                        <h3>Lumia</h3>
-                        <p>
-                            A108 Adam Street <br>
-                            New York, NY 535022<br>
-                            United States <br><br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 footer-links">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Services</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 footer-newsletter">
-                        <h4>Join Our Newsletter</h4>
-                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                        <form action="" method="post">
-                            <input type="email" name="email"><input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container d-md-flex py-4">
-
-            
-            <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-        </div>
-    </footer>
+    
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -174,8 +115,60 @@
     <script src="/wiki/public/assets/waypoints/noframework.waypoints.js"></script>
     <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
-    <script src="/wiki/public//js/main.js"></script>
+    <script src="/wiki/public/js/main.js"></script>
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+        const otherdiv = document.getElementById("otherdiv");
 
+        searchInput.addEventListener("input", handleSearch);
+
+        async function handleSearch(e) {
+            try {
+                const query = e.target.value;
+                const data = await fetchData(query);
+                updateResults(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function fetchData(query) {
+            const response = await fetch("search?q=" + encodeURIComponent(query));
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.text();
+        }
+
+        function updateResults(data) {
+            const results = JSON.parse(data);
+
+            searchResults.innerHTML = "";
+            otherdiv.style.display = "none";
+
+            results.forEach((item) => {
+                const card = document.createElement("div");
+                card.className = "col-lg-4 col-md-6 portfolio-item wow fadeInUp mb-5" ;
+                card.innerHTML = `
+                <div class="portfolio-wrap">
+                    <figure>
+                        <img src="${item.image}" class="img-fluid" alt="">
+                        <a href="detailWiki?id=${item.id}" class="link-details text-center" title="More Details">
+                            <i class="bx bx-link"></i>
+                        </a>
+                    </figure>
+
+                    <div class="portfolio-info">
+                        <h4 class="title"><a href="detailWiki?id=${item.id}">${item.title}</a></h4>
+                        <p class="content">${item.content}</p>
+                    </div>
+                </div>
+            `;
+                searchResults.appendChild(card);
+            });
+        }
+    </script>
 </body>
 
 </html>

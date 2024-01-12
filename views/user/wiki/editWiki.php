@@ -96,8 +96,7 @@
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
-                        <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
+                                    <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -253,7 +252,7 @@
     <script src="/wiki/public/assets/waypoints/noframework.waypoints.js"></script>
     <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
-    <script src="/wiki/public//js/main.js"></script>
+    <script src="/wiki/public/js/main.js"></script>
     <script>
         let image = document.getElementById("image");
         let input = document.getElementById("input-file");

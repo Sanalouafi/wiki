@@ -108,7 +108,6 @@ class HomeController
             $photo = null;
         }
 
-        // Fix variable names in the method call
         WikiModel::updateWikisForAuthor($wikiId, $title, $category, $photo, $description, $userId, $tags);
 
         header("Location: wikies");
@@ -132,5 +131,24 @@ class HomeController
             echo "Error uploading file.";
             return false;
         }
+    }
+
+    public static function search()
+    {
+
+        if (isset($_GET["q"])) {
+            $term = $_GET['q'];
+            $result = WikiModel::search($term);
+            echo json_encode($result);
+        }
+    }
+    public static function deleteWiki()
+    {
+        $id = $_GET['id'];
+
+        WikiModel::deleteWiki($id);
+
+        header("Location:wikies");
+        exit();
     }
 }

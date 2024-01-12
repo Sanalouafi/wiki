@@ -86,6 +86,51 @@ class WikiDAO
             }
         }
     }
+    public static function search($word)
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT
+                w.*,
+                u.fullname,
+                u.email,
+                u.photo,
+                c.category_name,
+                t.*
+            FROM
+                wiki w
+            JOIN
+                user u ON w.user_id = u.id
+            JOIN
+                category c ON w.category_id = c.id
+            LEFT JOIN
+                tag_wiki tw ON w.id = tw.wiki_id
+            LEFT JOIN
+                tag t ON tw.tag_id = t.id
+            WHERE
+                w.title LIKE :word OR
+                c.category_name LIKE :word OR
+                t.tag_name LIKE :word OR
+                u.fullname LIKE :word  AND
+                w.status = 'allow' ";
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bindParam(':word', $word, \PDO::PARAM_STR);
+            $stmt->execute();
+            $wikis = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $wikis;
+        } catch (\PDOException $e) {
+            die("Error searching: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
+
 
     public static function addWiki($title, $content, $status, $image, $categoryId, $userId, $tags)
     {
@@ -248,14 +293,14 @@ class WikiDAO
             $conn = Database::connect();
             $sql = "UPDATE wiki SET title = ?, content = ?, image = ?, user_id = ?, category_id = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
-            $stmt->execute([$title , $description , $image , $user_id , $category , $wikiId]);
+            $stmt->execute([$title, $description, $image, $user_id, $category, $wikiId]);
 
             $deleteSql = "DELETE FROM tag_wiki WHERE wiki_id = ?";
             $deleteStmt = $conn->prepare($deleteSql);
             $deleteStmt->bindParam(1, $wikiId);
             $deleteStmt->execute();
 
-            self::insertTagsForWiki($wikiId, $tags,$conn);
+            self::insertTagsForWiki($wikiId, $tags, $conn);
         } catch (\PDOException $e) {
             echo $e->getMessage();
             return false;
@@ -266,11 +311,10 @@ class WikiDAO
     {
         try {
             $conn = Database::connect();
-            $sql = "SELECT * FROM `wiki` ORDER BY `id` DESC LIMIT 3";
+            $sql = "SELECT * FROM `wiki` where status='allow' ORDER BY `id` DESC LIMIT 3";
             $stmt = $conn->query($sql);
             $lastWikies = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $lastWikies;
-            
         } catch (\PDOException $e) {
             die("Error getting last wikies: " . $e->getMessage());
         } finally {

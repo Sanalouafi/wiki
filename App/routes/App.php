@@ -10,6 +10,8 @@ $router->setRoutes([
     'GET' => [
         'signup' => ['AuthController', 'signup'],
         'home' => ['HomeController', 'home'],
+        'deleteWiki' => ['HomeController', 'deleteWiki'],
+        'index' => ['IndexController', 'index'],
         'addWiki' => ['HomeController', 'addWiki'],
         'editWiki' => ['HomeController', 'editWiki'],
         'wikies' => ['HomeController', 'wikies'],
@@ -22,9 +24,9 @@ $router->setRoutes([
         'updateStatus' => ['UserController', 'updateStatus'],
         'updateStatusWiki' => ['AdminController', 'updateStatusWiki'],
         'logout' => ['UserController', 'logout'],
-        'profileAdmin' => ['UserController', 'profileAdmin'],
         'authorWikies' => ['HomeController', 'authorWikies'],
         'detailWiki' => ['HomeController', 'detailWiki'],
+        'search' => ['HomeController', 'search'],
         
         
         

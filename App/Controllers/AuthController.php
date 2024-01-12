@@ -78,11 +78,13 @@ class AuthController
             $userName = $userModel['fullname'];
             $userRoleId = $userModel['role_id'];
             $photo = $userModel['photo'];
+            $status = $userModel['status'];
 
             $_SESSION['id'] = $userId;
             $_SESSION['name'] = $userName;
             $_SESSION['role_id'] = $userRoleId;
             $_SESSION['photo'] = $photo;
+            $_SESSION['status'] = $status;
 
             if ($userRoleId == 1) {
                 header("Location: dashboard");
