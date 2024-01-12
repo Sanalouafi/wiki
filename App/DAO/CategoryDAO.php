@@ -123,5 +123,21 @@ class CategoryDAO
             }
         }
     }
+    public static function getLastCategories()
+    {
+        try {
+            $conn = Database::connect();
+            $sql = "SELECT * FROM `category` ORDER BY `id` DESC LIMIT 4";
+            $stmt = $conn->query($sql);
+            $lastCategories = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $lastCategories;
+            
+        } catch (\PDOException $e) {
+            die("Error getting last categories: " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
 }
-?>

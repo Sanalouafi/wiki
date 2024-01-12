@@ -10,6 +10,7 @@ use App\Models\TagModel;
 session_start();
 class CategoryController
 {
+    
     public function categoryAdmin()
 
     {

@@ -54,4 +54,8 @@ class CategoryModel
     {
         CategoryDAO::deleteCategory($categoryId);
     }
+
+    public static function getLastCategories(){
+       return CategoryDAO::getLastCategories();
+    }
 }

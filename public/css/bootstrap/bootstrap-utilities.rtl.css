@@ -395,7 +395,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1030;
+  z-home: 1030;
 }
 
 .fixed-bottom {
@@ -403,21 +403,21 @@
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1030;
+  z-home: 1030;
 }
 
 .sticky-top {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 1020;
+  z-home: 1020;
 }
 
 .sticky-bottom {
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
-  z-index: 1020;
+  z-home: 1020;
 }
 
 @media (min-width: 576px) {
@@ -425,13 +425,13 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
   .sticky-sm-bottom {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
 }
 @media (min-width: 768px) {
@@ -439,13 +439,13 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
   .sticky-md-bottom {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
 }
 @media (min-width: 992px) {
@@ -453,13 +453,13 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
   .sticky-lg-bottom {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
 }
 @media (min-width: 1200px) {
@@ -467,13 +467,13 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
   .sticky-xl-bottom {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
 }
 @media (min-width: 1400px) {
@@ -481,13 +481,13 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
   .sticky-xxl-bottom {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    z-index: 1020;
+    z-home: 1020;
   }
 }
 .hstack {
@@ -526,7 +526,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1;
+  z-home: 1;
   content: "";
 }
 
@@ -2517,23 +2517,23 @@
 }
 
 .z-n1 {
-  z-index: -1 !important;
+  z-home: -1 !important;
 }
 
 .z-0 {
-  z-index: 0 !important;
+  z-home: 0 !important;
 }
 
 .z-1 {
-  z-index: 1 !important;
+  z-home: 1 !important;
 }
 
 .z-2 {
-  z-index: 2 !important;
+  z-home: 2 !important;
 }
 
 .z-3 {
-  z-index: 3 !important;
+  z-home: 3 !important;
 }
 
 @media (min-width: 576px) {

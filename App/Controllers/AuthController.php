@@ -34,7 +34,7 @@ class AuthController
             if (!$photo) {
                 $error = "Error uploading file.";
                 include '../../views/auth/signUp.php';
-                exit(); // Exit if there's an error
+                exit();
             }
         } else {
             $photo = null;
@@ -43,7 +43,7 @@ class AuthController
         UserModel::registerUser($name, $email, $password, $photo, $status, $roleId);
 
         header("Location: signin");
-        exit(); // Make sure to exit after the header
+        exit();
     }
 
 
@@ -52,7 +52,6 @@ class AuthController
         $uploadDir = '/wiki/public/images/';
         $uploadFile = $uploadDir . basename($file['name']);
 
-        // Create the directory if it doesn't exist
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -89,8 +88,7 @@ class AuthController
                 header("Location: dashboard");
                 exit();
             } elseif ($userRoleId == 2) {
-                // User logic
-                header("Location: signup");
+                header("Location: home");
                 exit();
             }
         } else {

@@ -69,14 +69,14 @@
             </a>
 
             <div class="navbar-nav align-items-center ms-auto">
-                
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                         <img class="rounded-circle me-lg-2" src="<?= $_SESSION['photo'] ?>" alt="" style="width: 40px; height: 40px;">
                         <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="profileAdmin?id=<?= $_SESSION['id']?>" class="dropdown-item">My Profile</a>
+                        <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -129,7 +129,10 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
-
+                        <h1><?php
+                            foreach ($lastCategories as $lastCat) {
+                                echo $lastCat['category_name'];
+                            } ?></h1>
                     </div>
                 </div>
 
@@ -171,15 +174,14 @@
     });
 </script>
 <script>
-    
-// Sidebar Toggler
-document
-  .querySelector(".sidebar-toggler")
-  .addEventListener("click", function () {
-    document.querySelector(".sidebar").classList.toggle("open");
-    document.querySelector(".content").classList.toggle("open");
-    return false;
-  });
+    // Sidebar Toggler
+    document
+        .querySelector(".sidebar-toggler")
+        .addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.toggle("open");
+            document.querySelector(".content").classList.toggle("open");
+            return false;
+        });
 </script>
 
 </html>

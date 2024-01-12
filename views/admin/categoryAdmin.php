@@ -94,7 +94,7 @@
                             <a href="#" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal" data-aos="fade-down" data-aos-duration="1500">Add New Category</a>
 
                             <!-- Add Modal -->
-                            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addModal" tabhome="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -145,7 +145,7 @@
 
 
                                         <!-- edit Modal -->
-                                        <div class="modal fade" id="editCat<?= $category['id'] ?>" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editCat<?= $category['id'] ?>" tabhome="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -180,7 +180,7 @@
                             <a href="#" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModalTag" data-aos="fade-down" data-aos-duration="1500">Add New Tag</a>
 
                             <!-- Add Modal -->
-                            <div class="modal fade" id="addModalTag" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addModalTag" tabhome="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -230,7 +230,7 @@
 
 
                                             <!-- edit Modal -->
-                                            <div class="modal fade" id="editTag<?= $tag['id'] ?>" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editTag<?= $tag['id'] ?>" tabhome="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">

@@ -2,7 +2,7 @@
 
 namespace App\DAO;
 
-require_once '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\Database\Database;
 
@@ -55,7 +55,7 @@ class WikiDAO
 
             $conn->beginTransaction();
 
-            $sql = "INSERT INTO `wiki` (`title`, `content`, `statut`, `image`, `category_id`, `user_id`, `create_at`) 
+            $sql = "INSERT INTO `wiki` (`title`, `content`, `status`, `image`, `category_id`, `user_id`, `create_at`) 
                     VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
 
             $stmt = $conn->prepare($sql);

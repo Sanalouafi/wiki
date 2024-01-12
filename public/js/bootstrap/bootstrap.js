@@ -78,7 +78,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap util/index.js
+   * Bootstrap util/home.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -309,18 +309,18 @@
    */
   const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
     const listLength = list.length;
-    let index = list.indexOf(activeElement);
+    let home = list.homeOf(activeElement);
 
     // if the element does not exist in the list return an element
     // depending on the direction and if cycle is allowed
-    if (index === -1) {
+    if (home === -1) {
       return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
     }
-    index += shouldGetNext ? 1 : -1;
+    home += shouldGetNext ? 1 : -1;
     if (isCycleAllowed) {
-      index = (index + listLength) % listLength;
+      home = (home + listLength) % listLength;
     }
-    return list[Math.max(0, Math.min(index, listLength - 1))];
+    return list[Math.max(0, Math.min(home, listLength - 1))];
   };
 
   /**
@@ -793,7 +793,7 @@
       return [];
     },
     focusableChildren(element) {
-      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabhome]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabhome^="-"])`).join(',');
       return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
     },
     getSelectorFromElement(element) {
@@ -1231,21 +1231,21 @@
       }
       this.cycle();
     }
-    to(index) {
+    to(home) {
       const items = this._getItems();
-      if (index > items.length - 1 || index < 0) {
+      if (home > items.length - 1 || home < 0) {
         return;
       }
       if (this._isSliding) {
-        EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
+        EventHandler.one(this._element, EVENT_SLID, () => this.to(home));
         return;
       }
-      const activeIndex = this._getItemIndex(this._getActive());
-      if (activeIndex === index) {
+      const activehome = this._getItemhome(this._getActive());
+      if (activehome === home) {
         return;
       }
-      const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
-      this._slide(order, items[index]);
+      const order = home > activehome ? ORDER_NEXT : ORDER_PREV;
+      this._slide(order, items[home]);
     }
     dispose() {
       if (this._swipeHelper) {
@@ -1311,17 +1311,17 @@
         this._slide(this._directionToOrder(direction));
       }
     }
-    _getItemIndex(element) {
-      return this._getItems().indexOf(element);
+    _getItemhome(element) {
+      return this._getItems().homeOf(element);
     }
-    _setActiveIndicatorElement(index) {
+    _setActiveIndicatorElement(home) {
       if (!this._indicatorsElement) {
         return;
       }
       const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
       activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
       activeIndicator.removeAttribute('aria-current');
-      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${home}"]`, this._indicatorsElement);
       if (newActiveIndicator) {
         newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
         newActiveIndicator.setAttribute('aria-current', 'true');
@@ -1345,13 +1345,13 @@
       if (nextElement === activeElement) {
         return;
       }
-      const nextElementIndex = this._getItemIndex(nextElement);
+      const nextElementhome = this._getItemhome(nextElement);
       const triggerEvent = eventName => {
         return EventHandler.trigger(this._element, eventName, {
           relatedTarget: nextElement,
           direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
-          to: nextElementIndex
+          from: this._getItemhome(activeElement),
+          to: nextElementhome
         });
       };
       const slideEvent = triggerEvent(EVENT_SLIDE);
@@ -1366,7 +1366,7 @@
       const isCycling = Boolean(this._interval);
       this.pause();
       this._isSliding = true;
-      this._setActiveIndicatorElement(nextElementIndex);
+      this._setActiveIndicatorElement(nextElementhome);
       this._activeElement = nextElement;
       const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END;
       const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV;
@@ -1443,9 +1443,9 @@
     }
     event.preventDefault();
     const carousel = Carousel.getOrCreateInstance(target);
-    const slideIndex = this.getAttribute('data-bs-slide-to');
-    if (slideIndex) {
-      carousel.to(slideIndex);
+    const slidehome = this.getAttribute('data-bs-slide-to');
+    if (slidehome) {
+      carousel.to(slidehome);
       carousel._maybeEnableCycle();
       return;
     }
@@ -4114,7 +4114,7 @@
           element.classList.add(CLASS_NAME_SHOW$1);
           return;
         }
-        element.removeAttribute('tabindex');
+        element.removeAttribute('tabhome');
         element.setAttribute('aria-selected', true);
         this._toggleDropDown(element, true);
         EventHandler.trigger(element, EVENT_SHOWN$1, {
@@ -4137,7 +4137,7 @@
           return;
         }
         element.setAttribute('aria-selected', false);
-        element.setAttribute('tabindex', '-1');
+        element.setAttribute('tabhome', '-1');
         this._toggleDropDown(element, false);
         EventHandler.trigger(element, EVENT_HIDDEN$1, {
           relatedTarget: relatedElem
@@ -4188,7 +4188,7 @@
         this._setAttributeIfNotExists(outerElem, 'role', 'presentation');
       }
       if (!isActive) {
-        child.setAttribute('tabindex', '-1');
+        child.setAttribute('tabhome', '-1');
       }
       this._setAttributeIfNotExists(child, 'role', 'tab');
 
@@ -4468,12 +4468,12 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap index.umd.js
+   * Bootstrap home.umd.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
 
-  const index_umd = {
+  const home_umd = {
     Alert,
     Button,
     Carousel,
@@ -4488,7 +4488,7 @@
     Tooltip
   };
 
-  return index_umd;
+  return home_umd;
 
 }));
 //# sourceMappingURL=bootstrap.js.map

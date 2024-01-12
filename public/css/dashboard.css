@@ -49,7 +49,7 @@ small {
     overflow-y: auto;
     background: var(--light);
     transition: 0.5s;
-    z-index: 999;
+    z-home: 999;
 }
 
 

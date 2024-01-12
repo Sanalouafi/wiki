@@ -9,6 +9,9 @@ $router = new Router();
 $router->setRoutes([
     'GET' => [
         'signup' => ['AuthController', 'signup'],
+        'home' => ['HomeController', 'home'],
+        'addWiki' => ['HomeController', 'addWiki'],
+        'wikies' => ['HomeController', 'wikies'],
         'signin' => ['AuthController', 'login'],
         'dashboard' => ['AdminController', 'dashboard'],
         'author' => ['AdminController', 'author'],
@@ -29,6 +32,7 @@ $router->setRoutes([
         'editCategory' => ['CategoryController', 'editCategory'],
         'addTag' => ['TagController', 'addTag'],
         'editTag' => ['TagController', 'editTag'],
+        'addWikies' => ['HomeController', 'addWikies'],
 
     ],
 ]);
@@ -55,7 +59,7 @@ if (isset($_GET['url'])) {
                     throw new Exception('Method not found in controller.');
                 }
             } else {
-                $controller->index();
+                $controller->home();
             }
         } else {
             throw new Exception('Route not found.');

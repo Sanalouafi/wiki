@@ -59,7 +59,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap util/index.js
+   * Bootstrap util/home.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -290,18 +290,18 @@
    */
   const getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
     const listLength = list.length;
-    let index = list.indexOf(activeElement);
+    let home = list.homeOf(activeElement);
 
     // if the element does not exist in the list return an element
     // depending on the direction and if cycle is allowed
-    if (index === -1) {
+    if (home === -1) {
       return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
     }
-    index += shouldGetNext ? 1 : -1;
+    home += shouldGetNext ? 1 : -1;
     if (isCycleAllowed) {
-      index = (index + listLength) % listLength;
+      home = (home + listLength) % listLength;
     }
-    return list[Math.max(0, Math.min(index, listLength - 1))];
+    return list[Math.max(0, Math.min(home, listLength - 1))];
   };
 
   /**
@@ -774,7 +774,7 @@
       return [];
     },
     focusableChildren(element) {
-      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(',');
+      const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabhome]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabhome^="-"])`).join(',');
       return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
     },
     getSelectorFromElement(element) {
@@ -1212,21 +1212,21 @@
       }
       this.cycle();
     }
-    to(index) {
+    to(home) {
       const items = this._getItems();
-      if (index > items.length - 1 || index < 0) {
+      if (home > items.length - 1 || home < 0) {
         return;
       }
       if (this._isSliding) {
-        EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
+        EventHandler.one(this._element, EVENT_SLID, () => this.to(home));
         return;
       }
-      const activeIndex = this._getItemIndex(this._getActive());
-      if (activeIndex === index) {
+      const activehome = this._getItemhome(this._getActive());
+      if (activehome === home) {
         return;
       }
-      const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
-      this._slide(order, items[index]);
+      const order = home > activehome ? ORDER_NEXT : ORDER_PREV;
+      this._slide(order, items[home]);
     }
     dispose() {
       if (this._swipeHelper) {
@@ -1292,17 +1292,17 @@
         this._slide(this._directionToOrder(direction));
       }
     }
-    _getItemIndex(element) {
-      return this._getItems().indexOf(element);
+    _getItemhome(element) {
+      return this._getItems().homeOf(element);
     }
-    _setActiveIndicatorElement(index) {
+    _setActiveIndicatorElement(home) {
       if (!this._indicatorsElement) {
         return;
       }
       const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
       activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
       activeIndicator.removeAttribute('aria-current');
-      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${home}"]`, this._indicatorsElement);
       if (newActiveIndicator) {
         newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
         newActiveIndicator.setAttribute('aria-current', 'true');
@@ -1326,13 +1326,13 @@
       if (nextElement === activeElement) {
         return;
       }
-      const nextElementIndex = this._getItemIndex(nextElement);
+      const nextElementhome = this._getItemhome(nextElement);
       const triggerEvent = eventName => {
         return EventHandler.trigger(this._element, eventName, {
           relatedTarget: nextElement,
           direction: this._orderToDirection(order),
-          from: this._getItemIndex(activeElement),
-          to: nextElementIndex
+          from: this._getItemhome(activeElement),
+          to: nextElementhome
         });
       };
       const slideEvent = triggerEvent(EVENT_SLIDE);
@@ -1347,7 +1347,7 @@
       const isCycling = Boolean(this._interval);
       this.pause();
       this._isSliding = true;
-      this._setActiveIndicatorElement(nextElementIndex);
+      this._setActiveIndicatorElement(nextElementhome);
       this._activeElement = nextElement;
       const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END;
       const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV;
@@ -1424,9 +1424,9 @@
     }
     event.preventDefault();
     const carousel = Carousel.getOrCreateInstance(target);
-    const slideIndex = this.getAttribute('data-bs-slide-to');
-    if (slideIndex) {
-      carousel.to(slideIndex);
+    const slidehome = this.getAttribute('data-bs-slide-to');
+    if (slidehome) {
+      carousel.to(slidehome);
       carousel._maybeEnableCycle();
       return;
     }
@@ -1952,7 +1952,7 @@
   }
 
   function isTableElement(element) {
-    return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
+    return ['table', 'td', 'th'].homeOf(getNodeName(element)) >= 0;
   }
 
   function getDocumentElement(element) {
@@ -2008,12 +2008,12 @@
       currentNode = currentNode.host;
     }
 
-    while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
+    while (isHTMLElement(currentNode) && ['html', 'body'].homeOf(getNodeName(currentNode)) < 0) {
       var css = getComputedStyle$1(currentNode); // This is non-exhaustive but covers the most common CSS properties that
       // create a containing block.
       // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
 
-      if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].indexOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
+      if (css.transform !== 'none' || css.perspective !== 'none' || css.contain === 'paint' || ['transform', 'perspective'].homeOf(css.willChange) !== -1 || isFirefox && css.willChange === 'filter' || isFirefox && css.filter && css.filter !== 'none') {
         return currentNode;
       } else {
         currentNode = currentNode.parentNode;
@@ -2041,7 +2041,7 @@
   }
 
   function getMainAxisFromPlacement(placement) {
-    return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
+    return ['top', 'bottom'].homeOf(placement) >= 0 ? 'x' : 'y';
   }
 
   function within(min$1, value, max$1) {
@@ -2089,7 +2089,7 @@
     var popperOffsets = state.modifiersData.popperOffsets;
     var basePlacement = getBasePlacement(state.placement);
     var axis = getMainAxisFromPlacement(basePlacement);
-    var isVertical = [left, right].indexOf(basePlacement) >= 0;
+    var isVertical = [left, right].homeOf(basePlacement) >= 0;
     var len = isVertical ? 'height' : 'width';
 
     if (!arrowElement || !popperOffsets) {
@@ -2473,7 +2473,7 @@
   }
 
   function getScrollParent(node) {
-    if (['html', 'body', '#document'].indexOf(getNodeName(node)) >= 0) {
+    if (['html', 'body', '#document'].homeOf(getNodeName(node)) >= 0) {
       // $FlowFixMe[incompatible-return]: assume body is always available
       return node.ownerDocument.body;
     }
@@ -2539,7 +2539,7 @@
 
   function getClippingParents(element) {
     var clippingParents = listScrollParents(getParentNode(element));
-    var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle$1(element).position) >= 0;
+    var canEscapeClipping = ['absolute', 'fixed'].homeOf(getComputedStyle$1(element).position) >= 0;
     var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
 
     if (!isElement(clipperElement)) {
@@ -2685,8 +2685,8 @@
     if (elementContext === popper && offsetData) {
       var offset = offsetData[placement];
       Object.keys(overflowOffsets).forEach(function (key) {
-        var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
-        var axis = [top, bottom].indexOf(key) >= 0 ? 'y' : 'x';
+        var multiply = [right, bottom].homeOf(key) >= 0 ? 1 : -1;
+        var axis = [top, bottom].homeOf(key) >= 0 ? 'y' : 'x';
         overflowOffsets[key] += offset[axis] * multiply;
       });
     }
@@ -2712,7 +2712,7 @@
       return getVariation(placement) === variation;
     }) : basePlacements;
     var allowedPlacements = placements$1.filter(function (placement) {
-      return allowedAutoPlacements.indexOf(placement) >= 0;
+      return allowedAutoPlacements.homeOf(placement) >= 0;
     });
 
     if (allowedPlacements.length === 0) {
@@ -2790,7 +2790,7 @@
       var _basePlacement = getBasePlacement(placement);
 
       var isStartVariation = getVariation(placement) === start;
-      var isVertical = [top, bottom].indexOf(_basePlacement) >= 0;
+      var isVertical = [top, bottom].homeOf(_basePlacement) >= 0;
       var len = isVertical ? 'width' : 'height';
       var overflow = detectOverflow(state, {
         placement: placement,
@@ -2935,7 +2935,7 @@
 
   function distanceAndSkiddingToXY(placement, rects, offset) {
     var basePlacement = getBasePlacement(placement);
-    var invertDistance = [left, top].indexOf(basePlacement) >= 0 ? -1 : 1;
+    var invertDistance = [left, top].homeOf(basePlacement) >= 0 ? -1 : 1;
 
     var _ref = typeof offset === 'function' ? offset(Object.assign({}, rects, {
       placement: placement
@@ -2945,7 +2945,7 @@
 
     skidding = skidding || 0;
     distance = (distance || 0) * invertDistance;
-    return [left, right].indexOf(basePlacement) >= 0 ? {
+    return [left, right].homeOf(basePlacement) >= 0 ? {
       x: distance,
       y: skidding
     } : {
@@ -3118,7 +3118,7 @@
 
       var _max = _offset - overflow[_altSide];
 
-      var isOriginSide = [top, left].indexOf(basePlacement) !== -1;
+      var isOriginSide = [top, left].homeOf(basePlacement) !== -1;
 
       var _offsetModifierValue = (_offsetModifierState$2 = offsetModifierState == null ? void 0 : offsetModifierState[altAxis]) != null ? _offsetModifierState$2 : 0;
 
@@ -3387,14 +3387,14 @@
             return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
           });
 
-          for (var index = 0; index < state.orderedModifiers.length; index++) {
+          for (var home = 0; home < state.orderedModifiers.length; home++) {
             if (state.reset === true) {
               state.reset = false;
-              index = -1;
+              home = -1;
               continue;
             }
 
-            var _state$orderedModifie = state.orderedModifiers[index],
+            var _state$orderedModifie = state.orderedModifiers[home],
                 fn = _state$orderedModifie.fn,
                 _state$orderedModifie2 = _state$orderedModifie.options,
                 _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
@@ -5934,7 +5934,7 @@
           element.classList.add(CLASS_NAME_SHOW$1);
           return;
         }
-        element.removeAttribute('tabindex');
+        element.removeAttribute('tabhome');
         element.setAttribute('aria-selected', true);
         this._toggleDropDown(element, true);
         EventHandler.trigger(element, EVENT_SHOWN$1, {
@@ -5957,7 +5957,7 @@
           return;
         }
         element.setAttribute('aria-selected', false);
-        element.setAttribute('tabindex', '-1');
+        element.setAttribute('tabhome', '-1');
         this._toggleDropDown(element, false);
         EventHandler.trigger(element, EVENT_HIDDEN$1, {
           relatedTarget: relatedElem
@@ -6008,7 +6008,7 @@
         this._setAttributeIfNotExists(outerElem, 'role', 'presentation');
       }
       if (!isActive) {
-        child.setAttribute('tabindex', '-1');
+        child.setAttribute('tabhome', '-1');
       }
       this._setAttributeIfNotExists(child, 'role', 'tab');
 
@@ -6288,12 +6288,12 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap index.umd.js
+   * Bootstrap home.umd.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
 
-  const index_umd = {
+  const home_umd = {
     Alert,
     Button,
     Carousel,
@@ -6308,7 +6308,7 @@
     Tooltip
   };
 
-  return index_umd;
+  return home_umd;
 
 }));
 //# sourceMappingURL=bootstrap.bundle.js.map
