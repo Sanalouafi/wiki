@@ -6,8 +6,7 @@ Wiki a besoin d'un système de gestionnaire de contenu efficace, associé à un 
 
 ## Repository GitHub
 
-[lien_vers_votre_repo_github](lien_vers_votre_repo_github)
-
+https://github.com/Sanalouafi/wiki.git
 
 ## Diagrammes UML
 
