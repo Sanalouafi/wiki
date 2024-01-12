@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\DAO\WikiDAO;
@@ -114,6 +115,15 @@ class WikiModel
     {
         return WikiDAO::getAllWikis();
     }
+    public static function getAllowWikis()
+    {
+        return WikiDAO::getAllowWikis();
+    }
+    public static function getUserWikies($userId)
+    {
+        return WikiDAO::getUserWikies($userId);
+    }
+
 
     public static function getWikiById($wikiId)
     {
@@ -133,5 +143,19 @@ class WikiModel
     public static function deleteWiki($wikiId)
     {
         WikiDAO::deleteWiki($wikiId);
+    }
+
+    public static function updateStatusWiki($wikiId, $status)
+    {
+
+        return WikiDAO::updateStatusWiki($wikiId, $status);
+    }
+    public static function updateWikisForAuthor($wikiId, $title, $category, $image, $description, $user_id, $tags)
+    {
+        return WikiDAO::updateWikisForAuthor($wikiId, $title, $category, $image, $description, $user_id, $tags);
+    }
+
+    public static function getLastWikies(){
+        return WikiDAO::getLastWikies();
     }
 }

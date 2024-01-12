@@ -65,29 +65,30 @@
     <main id="main">
 
 
-        <section id="portfolio" class="portfolio">
+        <section id="portfolio" class="portfolio" style="padding-top: 15%;">
             <div class="container">
 
                 <div class="section-title">
-                    <h2>Explore Our Wikis</h2>
+                    <h2>Explore Your Wikis</h2>
                     <p>Discover a variety of topics and insights created by our community</p>
 
                 </div>
 
                 <div class="row portfolio-container">
-                    <?php foreach ($allowWikies as $allowWiki) : ?>
+                    <?php foreach ($authorWikies as $authorWiki) : ?>
 
 
                         <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp">
                             <div class="portfolio-wrap">
                                 <figure>
-                                    <img src="<?= $allowWiki['image'] ?>" class="img-fluid" alt="">
-                                    <a href="detailWiki?id=<?= $allowWiki['id']; ?>" class="link-details text-center" title="More Details"><i class="bx bx-link"></i></a>
+                                    <img src="<?= $authorWiki['image'] ?>" class="img-fluid" alt="">
+                                    <a href="detailWiki?id=<?= $authorWiki['id']; ?>" class="link-preview" title="details"><i class="bx bx-link"></i></a>
+                                    <a href="editWiki?id=<?= $authorWiki['id']; ?>" class="link-details " title="More Details"><i class="bx bx-pen"></i></a>
                                 </figure>
 
                                 <div class="portfolio-info">
-                                    <h4><a href="detailWiki?id=<?= $allowWiki['id']; ?>"><?= $allowWiki['title'] ?></a></h4>
-                                    <p><?= $allowWiki['content'] ?></p>
+                                    <h4><a href="detailWiki?id=<?= $authorWiki['id']; ?>"><?= $authorWiki['title'] ?></a></h4>
+                                    <p><?= $authorWiki['content'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +154,7 @@
 
         <div class="container d-md-flex py-4">
 
-            
+
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

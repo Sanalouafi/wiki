@@ -37,7 +37,6 @@
             margin: 0 auto;
         }
     </style>
-    <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">
 
@@ -55,14 +54,14 @@
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
 
             <div class="header-social-links d-flex align-items-center">
                 <a href="signup" class="btn-get-started scrollto active">Get Started</a>
             </div>
 
         </div>
-    </header><!-- End Header -->
+    </header>
     <section class="img-background p-100 m-100">
         <div class="container mt-5">
             <div class="row justify-content-center">

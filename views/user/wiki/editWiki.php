@@ -18,11 +18,57 @@
     <link href="/wiki/public/assets/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <link href="/wiki/public/css/style.css" rel="stylesheet">
-    \
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>
+    <style>
+        .cube {
+            height: 10vh !important;
 
+        }
+
+        .card {
+            width: 100%;
+            border: none;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card img {
+            width: 200px;
+            border-radius: 10%;
+            object-fit: cover;
+        }
+
+        .card label {
+            margin-top: 30px;
+            text-align: center;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .card input {
+            display: none;
+        }
+
+        .form-input-label,
+        .form-label {
+            color: black;
+
+        }
+
+        .form-control {
+            height: 80% !important;
+        }
+    </style>
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">
 
@@ -35,9 +81,9 @@
                 <ul>
                     <li><a class="nav-link scrollto " href="home">Home</a></li>
                     <li><a class="nav-link scrollto" href="home#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="home#services">categories</a></li>
-                    <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
-                    <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a>
+                    <li><a class="nav-link scrollto" href="#services">categories</a></li>
+                    <li><a class="nav-link scrollto " href="wikies">Wikies</a></li>
+                    <li> <a href="addWiki" class="nav-link scrollto active">add wiki</a>
                     </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
@@ -61,45 +107,77 @@
     </header>
 
 
+    <main id="main" class="form-container">
+        <div class="container-fluid pt-4 px-4" id="content">
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light text-center rounded p-4">
 
-    <main id="main">
+                            <div class="container d-flex justify-content-center" style="margin-top:5%;">
+                                <form method="POST" action="editWikies" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
+                                    <input type="hidden" class="form-control" name="userId" value="<?= $_SESSION['id'] ?>" required>
+                                    <input type="hidden" class="form-control" name="wikiId" value="<?= $detailWiki['id']; ?>" required>
 
+                                    <div class="card">
+                                        <img src="<?= $detailWiki['image']; ?>" alt="image" id="image">
+                                        <label for="input-file" class="text-dark">Choose Image</label>
+                                        <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="photo" required>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="form-label mb-2">Title:</label>
+                                            <input type="text" class="form-control" name="title" placeholder="Title" value="<?= $detailWiki['title']; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label mb-2">Description:</label>
+                                        <textarea class="form-control" name="description" id="" cols="30" rows="10"><?= $detailWiki['content'] ?></textarea>
+                                    </div>
 
-        <section id="portfolio" class="portfolio">
-            <div class="container">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="form-label mb-2">Category:</label>
+                                            <select name="category" class="form-control">
+                                                <option value=""><?= $detailWiki['category_name']; ?></option>
+                                                <?php foreach ($categories as $cat) : ?>
+                                                    <option value="<?= $cat['id'] ?>"><?= $cat['category_name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
 
-                <div class="section-title">
-                    <h2>Explore Our Wikis</h2>
-                    <p>Discover a variety of topics and insights created by our community</p>
+                                        <div class="col">
+                                            <label class="form-label mb-2">Tag:</label>
+                                            <select name="tags[]" class="form-control" multiple id="tagsSelect">
+                                                <option selected><?= $detailWiki['tag_names'] ?></option>
+                                                <?php foreach ($tags as $tag) : ?>
+                                                    <option value="<?= $tag['id'] ?>"><?= $tag['tag_name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
 
-                </div>
+                                    </div>
 
-                <div class="row portfolio-container">
-                    <?php foreach ($allowWikies as $allowWiki) : ?>
+                                    <div class="row ms-1 mt-5 justify-content-center">
+                                        <button type="submit" name="submit" class="btn btn-success col-3 me-3">Add Wiki</button>
+                                        <a href="produits.php" class="btn btn-danger col-3">Cancel</a>
+                                    </div>
 
-
-                        <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp">
-                            <div class="portfolio-wrap">
-                                <figure>
-                                    <img src="<?= $allowWiki['image'] ?>" class="img-fluid" alt="">
-                                    <a href="detailWiki?id=<?= $allowWiki['id']; ?>" class="link-details text-center" title="More Details"><i class="bx bx-link"></i></a>
-                                </figure>
-
-                                <div class="portfolio-info">
-                                    <h4><a href="detailWiki?id=<?= $allowWiki['id']; ?>"><?= $allowWiki['title'] ?></a></h4>
-                                    <p><?= $allowWiki['content'] ?></p>
-                                </div>
+                                </form>
                             </div>
+
                         </div>
-
-                    <?php endforeach; ?>
+                    </div>
                 </div>
-
             </div>
-        </section>
 
 
+
+        </div>
     </main>
+
+    </main><!-- End #main -->
+
     <footer id="footer">
 
         <div class="footer-top">
@@ -165,7 +243,8 @@
     </footer>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="/wiki/public/assets/purecounter/purecounter_vanilla.js"></script>
     <script src="/wiki/public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/wiki/public/assets/glightbox/js/glightbox.min.js"></script>
@@ -175,6 +254,21 @@
     <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
     <script src="/wiki/public//js/main.js"></script>
+    <script>
+        let image = document.getElementById("image");
+        let input = document.getElementById("input-file");
+
+        input.onchange = () => {
+            image.src = URL.createObjectURL(input.files[0]);
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tagsSelect").select2({
+                maximumSelectionLength: 10
+            });
+        });
+    </script>
 
 </body>
 

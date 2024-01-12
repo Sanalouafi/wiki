@@ -128,22 +128,45 @@
 
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <h1><?php
-                            foreach ($lastCategories as $lastCat) {
-                                echo $lastCat['category_name'];
-                            } ?></h1>
-                    </div>
-                </div>
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-dark text-center rounded p-4">
+                            <table class="table table-hover text-center">
+                                <thead class="table-dark">
+                                    <tr data-aos="fade-left" data-aos-duration="1500">
+                                        <th scope="col-6" data-aos="fade-left">photo</th>
+                                        <th scope="col-6" data-aos="fade-left"> title</th>
+                                        <th scope="col-6" data-aos="fade-left"> content</th>
+                                        <th scope="col-6" data-aos="fade-left">Status</th>
+                                        <th scope="col-6" data-aos="fade-left">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody" data-aos="fade-right" data-aos-duration="1500">
+                                    <?php foreach ($wikies as $wiki) : ?>
+                                        <tr>
+                                            <td> <img class="rounded-circle" src="<?= $wiki['image'] ?>" alt="" style="width: 40px; height: 40px;">
+                                            </td>
+                                            <td><?= $wiki['title'] ?></td>
+                                            <td><?= $wiki['content'] ?></td>
+                                            <td><?= $wiki['status'] ?></td>
 
+                                            <td>
+                                                <?php
+                                                if ($wiki['status'] == 'allow') { ?>
+                                                    <a href="updateStatusWiki?id=<?= $wiki['id'] ?>&status=deny" class="link-danger">
+                                                        <i class='bx bxs-lock fs-6'></i>
+                                                    </a>
+                                                <?php } else { ?>
+                                                    <a href="updateStatusWiki?id=<?= $wiki['id'] ?>&status=allow">
+                                                        <i class='bx bxs-lock fs-6'></i>
+                                                    </a>
+                                                <?php } ?>
+                                            </td>
 
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-6 col-xl-6">
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
 
-                        </div>
-
-                        <div class="col-sm-12 col-md-6 col-xl-6">
 
                         </div>
                     </div>
@@ -152,7 +175,22 @@
 
 
 
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-md-6 col-xl-6">
+
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 col-xl-6">
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+
+    </div>
     </div>
 
     <!-- Content End -->
@@ -182,6 +220,8 @@
             document.querySelector(".content").classList.toggle("open");
             return false;
         });
+        AOS.init();
+
 </script>
 
 </html>

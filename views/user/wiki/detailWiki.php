@@ -22,7 +22,7 @@
 </head>
 
 <body>
-
+  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
 
@@ -33,10 +33,10 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="home">Home</a></li>
+          <li><a class="nav-link scrollto " href="home">Home</a></li>
           <li><a class="nav-link scrollto" href="home#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">categories</a></li>
-          <li><a class="nav-link scrollto " href="wikies">Wikies</a></li>
+          <li><a class="nav-link scrollto" href="home#services">categories</a></li>
+          <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
           <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a>
           </li>
         </ul>
@@ -51,7 +51,6 @@
           </a>
           <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
             <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
-            <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
             <a href="logout" class="dropdown-item">Log Out</a>
           </div>
         </div>
@@ -60,146 +59,59 @@
     </div>
   </header>
 
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="container text-center text-md-left" data-aos="fade-up">
-      <h1>Welcome to <span>WIKI</span></h1>
-      <h2>Discover, Learn, Share</h2>
-      <a href="signup" class="btn-get-started scrollto">Get Started</a>
-    </div>
-  </section>
-
   <main id="main">
 
-    <section id="what-we-do" class="what-we-do">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
       <div class="container">
 
-        <div class="section-title">
-          <h2>Explore Our Articles</h2>
-          <p>Discover a variety of engaging articles covering diverse topics.</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Wiki Details</h2>
+          <ol>
+            <li><a href="home">Home</a></li>
+            <li>wiki Details</li>
+          </ol>
         </div>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="#">Lorem Ipsum</a></h4>
-              <p>Dive into articles that explore the origins and impact of Lorem Ipsum text.</p>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+
+              <div class="swiper-slide">
+                <img src="<?php echo $detailWiki['image'] ?>" alt="">
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="#">Perspiciatis Insights</a></h4>
-              <p>Gain insights into the art and science of writing articles with clarity and precision.</p>
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>wiki information</h3>
+              <ul>
+                <li><strong>Category</strong>: <?php echo $detailWiki['category_name'] ?></li>
+                <li><strong>tags</strong>: <?php echo $detailWiki['tag_names'] ?></li>
+                <li><strong>wiki date</strong>: <?php echo $detailWiki['create_at'] ?></li>
+                <li><strong>Author </strong>: <a href="#"><?php echo $detailWiki['fullname'] ?></a></li>
+              </ul>
             </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="#">Magni Dolores</a></h4>
-              <p>Explore articles that delve into exceptional stories and experiences.</p>
+            <div class="portfolio-description">
+              <h2><?php echo $detailWiki['title'] ?></h2>
+              <p>
+              <?php echo $detailWiki['content'] ?>              </p>
             </div>
           </div>
 
         </div>
 
       </div>
-    </section>
-
-
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6">
-            <img src="/wiki/public/images/about.jpg" class="img-fluid" alt="About Wiki Image">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <h3>About Our Wiki</h3>
-            <p>
-              Welcome to our Wiki platform, dedicated to sharing knowledge and insights on a wide array of topics. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bx bx-check-double"></i> Explore a vast collection of well-curated articles.</li>
-              <li><i class="bx bx-check-double"></i> Contribute your knowledge and enrich our growing community.</li>
-            </ul>
-            <div class="row icon-boxes p-10">
-              <div class="col-md-6">
-                <i class="bx bx-receipt"></i>
-                <h4>Discover Insights</h4>
-                <p>Find valuable insights and information on diverse subjects.</p>
-              </div>
-              <div class="col-md-6 mt-4 mt-md-0">
-                <i class="bx bx-cube-alt"></i>
-                <h4>Community Collaboration</h4>
-                <p>Collaborate with our community to expand the breadth of knowledge.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <section id="services" class="services section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>the newest Categories</h2>
-          <p>Discover a variety of topics and explore the wealth of knowledge in our diverse categories.</p>
-        </div>
-
-        <div class="row">
-          <?php foreach ($lastCategories as $lastCat) : ?>
-            <div class="col-md-6 p-2">
-              <div class="icon-box">
-                <i class="bi bi-book"></i>
-                <h4><a href="#"><?= $lastCat['category_name'] ?></a></h4>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Explore the Latest Wikis</h2>
-          <p>Discover a variety of topics and insights created by our community</p>
-
-        </div>
-
-
-
-        <div class="row portfolio-container">
-          <?php foreach ($lastWikies as $lastWi) : ?>
-
-            <div class="col-lg-4 col-md-6 portfolio-item wow fadeInUp">
-              <div class="portfolio-wrap">
-                <figure>
-                  <img src="<?= $lastWi['image'] ?>" class="img-fluid" alt="">
-                  <a href="detailWiki?id=<?= $lastWi['id']; ?>" class="link-preview" title="details"><i class="bx bx-link"></i></a>
-                </figure>
-
-                <div class="portfolio-info">
-                  <h4><a href="detailWiki?id=<?= $lastWi['id']; ?>"><?= $lastWi['title']; ?></a></h4>
-                  <p><?= $lastWi['content']; ?></p>
-                </div>
-              </div>
-            </div>
-          <?php endforeach; ?>
-        </div>
-
-      </div>
-    </section>
-
-
+    </section><!-- End Portfolio Details Section -->
 
   </main>
   <footer id="footer">
@@ -255,7 +167,7 @@
 
     <div class="container d-md-flex py-4">
 
-
+     
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

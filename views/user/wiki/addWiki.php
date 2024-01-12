@@ -18,6 +18,8 @@
     <link href="/wiki/public/assets/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <link href="/wiki/public/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 </head>
 
@@ -67,7 +69,6 @@
             height: 80% !important;
         }
     </style>
-    <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center">
 
@@ -86,7 +87,7 @@
                     </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
 
             <div class="header-social-links d-flex  align-items-center">
                 <div class="nav-item dropdown px-5">
@@ -96,13 +97,14 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="profileAdmin?id=<?= $_SESSION['id'] ?>" class="dropdown-item">My Profile</a>
+                        <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
                         <a href="logout" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
             </div>
 
         </div>
-    </header><!-- End Header -->
+    </header>
 
 
     <main id="main" class="form-container">
@@ -144,7 +146,7 @@
 
                                         <div class="col">
                                             <label class="form-label mb-2">Tag:</label>
-                                            <select name="tags[]" class="form-control" multiple>
+                                            <select name="tags[]" class="form-control" multiple id="tagsSelect">
                                                 <?php foreach ($tags as $tag) : ?>
                                                     <option value="<?= $tag['id'] ?>"><?= $tag['tag_name'] ?></option>
                                                 <?php endforeach; ?>
@@ -171,7 +173,7 @@
         </div>
     </main>
 
-    </main><!-- End #main -->
+    </main>
 
     <footer id="footer">
 
@@ -226,18 +228,7 @@
 
         <div class="container d-md-flex py-4">
 
-            <div class="me-md-auto text-center text-md-start">
-                <div class="copyright">
-                    &copy; Copyright <strong><span>Lumia</span></strong>. All Rights Reserved
-                </div>
-                <div class="credits">
-                    <!-- All the links in the footer should remain intact. -->
-                    <!-- You can delete the links only if you purchased the pro version. -->
-                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/lumia-bootstrap-business-template/ -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                </div>
-            </div>
+            
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -246,11 +237,11 @@
                 <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
         </div>
-    </footer><!-- End Footer -->
+    </footer>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="/wiki/public/assets/purecounter/purecounter_vanilla.js"></script>
     <script src="/wiki/public/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/wiki/public/assets/glightbox/js/glightbox.min.js"></script>
@@ -259,7 +250,6 @@
     <script src="/wiki/public/assets/waypoints/noframework.waypoints.js"></script>
     <script src="/wiki/public/assets/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
     <script src="/wiki/public//js/main.js"></script>
     <script>
         let image = document.getElementById("image");
@@ -269,6 +259,14 @@
             image.src = URL.createObjectURL(input.files[0]);
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            $("#tagsSelect").select2({
+                maximumSelectionLength: 10
+            });
+        });
+    </script>
+
 </body>
 
 </html>
