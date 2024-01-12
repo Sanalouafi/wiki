@@ -37,25 +37,36 @@
                     <li><a class="nav-link scrollto" href="home#about">About</a></li>
                     <li><a class="nav-link scrollto" href="home#services">categories</a></li>
                     <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
-                    <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a>
-                    </li>
+
+                    <?php
+                    if (isset($_SESSION['role_id'])) {
+
+
+                        if ($_SESSION['status'] == 'allow') { ?>
+                            <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a>
+                            </li>
+                        <?php }
+                    } else { ?>
+                        <li><a class="nav-link scrollto " href="signup">Get Started</a></li>
+                    <?php } ?>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-
-            <div class="header-social-links d-flex  align-items-center">
-                <div class="nav-item dropdown px-5">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="<?= $_SESSION['photo'] ?>" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                                    <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
-                        <a href="logout" class="dropdown-item">Log Out</a>
+            <?php
+            if (isset($_SESSION['role_id'])) { ?>
+                <div class="header-social-links d-flex  align-items-center">
+                    <div class="nav-item dropdown px-5">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="<?= $_SESSION['photo'] ?>" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex"><?= $_SESSION['name'] ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="authorWikies?id=<?= $_SESSION['id'] ?>" class="dropdown-item">your Wikies</a>
+                            <a href="logout" class="dropdown-item">Log Out</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            <?php } ?>
         </div>
     </header>
 
@@ -103,7 +114,7 @@
 
 
     </main>
-    
+
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -149,7 +160,7 @@
 
             results.forEach((item) => {
                 const card = document.createElement("div");
-                card.className = "col-lg-4 col-md-6 portfolio-item wow fadeInUp mb-5" ;
+                card.className = "col-lg-4 col-md-6 portfolio-item wow fadeInUp mb-5";
                 card.innerHTML = `
                 <div class="portfolio-wrap">
                     <figure>

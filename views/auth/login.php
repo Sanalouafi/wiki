@@ -32,9 +32,9 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto" href="home">Home</a></li>
-          <li><a class="nav-link scrollto" href="home#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="index">Home</a></li>
+          <li><a class="nav-link scrollto" href="index#about">About</a></li>
+          <li><a class="nav-link scrollto" href="index#services">categories</a></li>
           <li><a class="nav-link scrollto " href="wikies">Wikies</a></li>
 
         </ul>

@@ -53,6 +53,8 @@ class HomeController
     public function detailWiki()
     {
         $id = $_GET['id'];
+        $lastCategories = CategoryModel::getLastCategories();
+
         $detailWiki = WikiModel::getWikiById($id);
 
         include '../../views/user/wiki/detailWiki.php';

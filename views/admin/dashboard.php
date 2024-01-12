@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['role_id']) && $_SESSION['id'] == 1) {
+if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 1) {
 ?>
 
     <!DOCTYPE html>
