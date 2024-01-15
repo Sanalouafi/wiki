@@ -68,7 +68,7 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 2) {
     <div class="container text-center text-md-left" data-aos="fade-up">
       <h1>Welcome to <span>WIKI</span></h1>
       <h2>Discover, Learn, Share</h2>
-      <a href="signup" class="btn-get-started scrollto">Get Started</a>
+      <a href="addWiki" class="btn-get-started scrollto">Get Started</a>
     </div>
   </section>
 

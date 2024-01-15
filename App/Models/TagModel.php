@@ -54,4 +54,7 @@ class TagModel
     {
         TagDAO::deleteTag($tagId);
     }
+    public static function tagCount(){
+        return TagDAO::tagCount();
+    }
 }

@@ -1,4 +1,4 @@
-const form = document.getElementById("signupForm");
+ const form = document.getElementById("signupForm");
 const fullNameInput = document.getElementById("full-name");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");

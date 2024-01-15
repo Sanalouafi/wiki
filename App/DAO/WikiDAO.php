@@ -323,4 +323,42 @@ class WikiDAO
             }
         }
     }
+    public static function allowedWikiCount()
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT COUNT(*) as allWiki FROM `wiki` where `status`='allow'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $wikiCount = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            return $wikiCount;
+        } catch (\PDOException $e) {
+            die("Error get wiki number " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
+    public static function arshivedWikiCount()
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT COUNT(*) as allWiki FROM `wiki` where `status`='deny'";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $wikiCount = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            return $wikiCount;
+        } catch (\PDOException $e) {
+            die("Error get wiki number " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
 }

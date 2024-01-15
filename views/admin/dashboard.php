@@ -93,8 +93,8 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 1) {
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Sale</p>
-                                <h5 class="mb-0">$1234</h5>
+                                <p class="mb-2">Total Categories</p>
+                                <h5 class="mb-0"><?php echo $categoryCount['allCat']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 1) {
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h5 class="mb-0">$1234</h5>
+                                <p class="mb-2">Total Tags</p>
+                                <h5 class="mb-0"><?php echo $tagCount['allTag']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -111,8 +111,8 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 1) {
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h5 class="mb-0">$1234</h5>
+                                <p class="mb-2">Allowed wikies</p>
+                                <h5 class="mb-0"><?php echo $allowedWikiCount['allWiki']; ?></h5>
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@ if (isset($_SESSION['role_id']) && $_SESSION['role_id'] == 1) {
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h5 class="mb-0">$1234</h5>
+                                <p class="mb-2">Arshived  wikies</p>
+                                <h5 class="mb-0"><?php echo $arshivedWikiCount['allWiki']; ?></h5>
                             </div>
                         </div>
                     </div>

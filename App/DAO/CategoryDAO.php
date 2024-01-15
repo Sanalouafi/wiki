@@ -8,6 +8,26 @@ use App\Database\Database;
 
 class CategoryDAO
 {
+
+    public static function categoryCount()
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT COUNT(*) as allCat FROM `category`";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $categoryCount = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            return $categoryCount;
+        } catch (\PDOException $e) {
+            die("Error get Category number " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
     public static function getAllCategories()
     {
         try {
@@ -131,7 +151,6 @@ class CategoryDAO
             $stmt = $conn->query($sql);
             $lastCategories = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $lastCategories;
-            
         } catch (\PDOException $e) {
             die("Error getting last categories: " . $e->getMessage());
         } finally {

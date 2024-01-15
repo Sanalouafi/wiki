@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use App\DAO\CategoryDAO;
+use App\Models\TagModel;
 use App\Models\UserModel;
 use App\Models\WikiModel;
 
@@ -12,6 +14,10 @@ class AdminController
 {
     public function dashboard()
     {
+        $allowedWikiCount=WikiModel::allowedWikiCount();
+        $arshivedWikiCount=WikiModel::arshivedWikiCount();
+        $tagCount=TagModel::tagCount();
+        $categoryCount=CategoryDAO::categoryCount();
         $wikies = WikiModel::getAllWikis();
         include '../../views/admin/dashboard.php';
         exit();

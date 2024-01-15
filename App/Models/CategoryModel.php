@@ -58,4 +58,7 @@ class CategoryModel
     public static function getLastCategories(){
        return CategoryDAO::getLastCategories();
     }
+    public static function categoryCount(){
+        return CategoryDAO::categoryCount();
+    }
 }

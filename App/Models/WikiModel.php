@@ -155,10 +155,20 @@ class WikiModel
         return WikiDAO::updateWikisForAuthor($wikiId, $title, $category, $image, $description, $user_id, $tags);
     }
 
-    public static function getLastWikies(){
+    public static function getLastWikies()
+    {
         return WikiDAO::getLastWikies();
     }
-    public static function search($word){
+    public static function search($word)
+    {
         return WikiDAO::search($word);
+    }
+    public static function allowedWikiCount()
+    {
+        return WikiDAO::allowedWikiCount();
+    }
+    public static function arshivedWikiCount()
+    {
+        return WikiDAO::arshivedWikiCount();
     }
 }

@@ -156,7 +156,7 @@
 
                                     <div class="row ms-1 mt-5 justify-content-center">
                                         <button type="submit" name="submit" class="btn btn-success col-3 me-3">Add Wiki</button>
-                                        <a href="produits.php" class="btn btn-danger col-3">Cancel</a>
+                                        <a href="wikies" class="btn btn-danger col-3">Cancel</a>
                                     </div>
 
                                 </form>

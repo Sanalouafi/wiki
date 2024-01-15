@@ -27,15 +27,15 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo me-auto d-flex">
-        <a href="home"><img src="/wiki/public/images/logo.png" alt="" class="img-fluid"></a>
-        <h1><a href="home">Wiki</a></h1>
+        <a href="index"><img src="/wiki/public/images/logo.png" alt="" class="img-fluid"></a>
+        <h1><a href="index">Wiki</a></h1>
       </div>
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="home">Home</a></li>
-          <li><a class="nav-link scrollto" href="home#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#services">categories</a></li>
+          <li><a class="nav-link scrollto active" href="index">Home</a></li>
+          <li><a class="nav-link scrollto" href="index#about">About</a></li>
+          <li><a class="nav-link scrollto" href="index#services">categories</a></li>
           <li><a class="nav-link scrollto " href="wikies">Wikies</a></li>
           <li><a class="nav-link scrollto " href="signup">Get Started</a></li>
           
@@ -85,7 +85,7 @@
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <div class="icon"><i class="bx bx-tacindexter"></i></div>
               <h4><a href="#">Magni Dolores</a></h4>
               <p>Explore articles that delve into exceptional stories and experiences.</p>
             </div>
@@ -212,9 +212,9 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="home">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="home#about">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="home#services">Categories</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="index">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="index#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="index#services">Categories</a></li>
 
             </ul>
           </div>
@@ -223,7 +223,7 @@
             <h4>Our categorie</h4>
             <ul>
               <?php foreach ($lastCategories as $lastCat) : ?>
-                <li><i class="bx bx-chevron-right"></i> <a href="home#services"><?= $lastCat['category_name'] ?></a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="index#services"><?= $lastCat['category_name'] ?></a></li>
               <?php endforeach; ?>
             </ul>
           </div>

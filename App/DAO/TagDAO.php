@@ -123,5 +123,24 @@ class TagDAO
             }
         }
     }
+    public static function tagCount()
+    {
+        try {
+            $conn = Database::connect();
+
+            $sql = "SELECT COUNT(*) as allTag FROM `tag`";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $tagCount = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            return $tagCount;
+        } catch (\PDOException $e) {
+            die("Error get tag number " . $e->getMessage());
+        } finally {
+            if ($conn) {
+                $conn = null;
+            }
+        }
+    }
 }
 ?>

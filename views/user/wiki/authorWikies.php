@@ -91,8 +91,7 @@
                             <div class="portfolio-wrap">
                                 <figure>
                                     <img src="<?= $authorWiki['image'] ?>" class="img-fluid" alt="">
-                                    <a href="detailWiki?id=<?= $authorWiki['id']; ?>" class="link-preview" title="details"><i class="bx bx-link"></i></a>
-                                    <a href="editWiki?id=<?= $authorWiki['id']; ?>" class="link-details " title="More Details"><i class="bx bx-pen"></i></a>
+                                    <a href="editWiki?id=<?= $authorWiki['id']; ?>" class="link-preview" title="details"><i class="bx bx-pen"></i></a>
                                     <a href="deleteWiki?id=<?= $authorWiki['id']; ?>" class="link-details " title="More Details"><i class="bx bx-trash"></i></a>
                                 </figure>
 
