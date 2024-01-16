@@ -32,24 +32,27 @@
             </div>
 
             <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto " href="home">Home</a></li>
-                    <li><a class="nav-link scrollto" href="home#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="home#services">categories</a></li>
-                    <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
+                <?php if (isset($_SESSION['role_id'])) { ?>
+                    <ul>
+                        <li><a class="nav-link scrollto " href="home">Home</a></li>
+                        <li><a class="nav-link scrollto" href="home#about">About</a></li>
+                        <li><a class="nav-link scrollto" href="home#services">categories</a></li>
+                        <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
+                        <?php if ($_SESSION['status'] == 'allow') { ?>
+                            <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a></li>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
 
-                    <?php
-                    if (isset($_SESSION['role_id'])) {
+                    <ul>
+                        <li><a class="nav-link scrollto " href="index">Home</a></li>
+                        <li><a class="nav-link scrollto" href="index#about">About</a></li>
+                        <li><a class="nav-link scrollto" href="index#services">categories</a></li>
+                        <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
+                        <li> <a href="addWiki" class="nav-link scrollto ">Get Started</a></li>
+                    </ul>
+                <?php } ?>
 
-
-                        if ($_SESSION['status'] == 'allow') { ?>
-                            <li> <a href="addWiki" class="nav-link scrollto ">add wiki</a>
-                            </li>
-                        <?php }
-                    } else { ?>
-                        <li><a class="nav-link scrollto " href="signup">Get Started</a></li>
-                    <?php } ?>
-                </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
             <?php
@@ -132,36 +135,22 @@
         const searchResults = document.getElementById("searchResults");
         const otherdiv = document.getElementById("otherdiv");
 
-        searchInput.addEventListener("input", handleSearch);
-
-        async function handleSearch(e) {
+        searchInput.addEventListener("input", async (e) => {
             try {
+
                 const query = e.target.value;
-                const data = await fetchData(query);
-                updateResults(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
+                const response = await fetch("search?q=" + query);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const results = await response.json();
+                searchResults.innerHTML = "";
+                otherdiv.style.display = "none";
 
-        async function fetchData(query) {
-            const response = await fetch("search?q=" + encodeURIComponent(query));
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.text();
-        }
-
-        function updateResults(data) {
-            const results = JSON.parse(data);
-
-            searchResults.innerHTML = "";
-            otherdiv.style.display = "none";
-
-            results.forEach((item) => {
-                const card = document.createElement("div");
-                card.className = "col-lg-4 col-md-6 portfolio-item wow fadeInUp mb-5";
-                card.innerHTML = `
+                results.forEach((item) => {
+                    const card = document.createElement("div");
+                    card.className = "col-lg-4 col-md-6 portfolio-item wow fadeInUp mb-5";
+                    card.innerHTML = `
                 <div class="portfolio-wrap">
                     <figure>
                         <img src="${item.image}" class="img-fluid" alt="">
@@ -176,9 +165,13 @@
                     </div>
                 </div>
             `;
-                searchResults.appendChild(card);
-            });
-        }
+                    searchResults.appendChild(card);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+
+        });
     </script>
 </body>
 

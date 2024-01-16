@@ -92,33 +92,33 @@ class WikiDAO
             $conn = Database::connect();
 
             $sql = "SELECT
-                w.*,
-                u.fullname,
-                u.email,
-                u.photo,
-                c.category_name,
-                t.*
-            FROM
-                wiki w
-            JOIN
-                user u ON w.user_id = u.id
-            JOIN
-                category c ON w.category_id = c.id
-            LEFT JOIN
-                tag_wiki tw ON w.id = tw.wiki_id
-            LEFT JOIN
-                tag t ON tw.tag_id = t.id
-            WHERE
+            w.*,
+            u.fullname,
+            u.email,
+            u.photo,
+            c.category_name,
+            t.*
+        FROM
+            wiki w
+        JOIN
+            user u ON w.user_id = u.id
+        JOIN
+            category c ON w.category_id = c.id
+        LEFT JOIN
+            tag_wiki tw ON w.id = tw.wiki_id
+        LEFT JOIN
+            tag t ON tw.tag_id = t.id
+        WHERE
+            (
                 w.title LIKE :word OR
                 c.category_name LIKE :word OR
                 t.tag_name LIKE :word OR
-                u.fullname LIKE :word  AND
-                w.status = 'allow' ";
+                u.fullname LIKE :word
+            )
+            AND w.status = 'allow' ";
 
             $stmt = $conn->prepare($sql);
-
-            $stmt->bindParam(':word', $word, \PDO::PARAM_STR);
-            $stmt->execute();
+            $stmt->execute(['word'=> '%' .$word. '%']);
             $wikis = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             return $wikis;
