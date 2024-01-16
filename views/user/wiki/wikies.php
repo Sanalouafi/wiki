@@ -49,7 +49,7 @@
                         <li><a class="nav-link scrollto" href="index#about">About</a></li>
                         <li><a class="nav-link scrollto" href="index#services">categories</a></li>
                         <li><a class="nav-link scrollto active" href="wikies">Wikies</a></li>
-                        <li> <a href="addWiki" class="nav-link scrollto ">Get Started</a></li>
+                        <li> <a href="signup" class="nav-link scrollto ">Get Started</a></li>
                     </ul>
                 <?php } ?>
 

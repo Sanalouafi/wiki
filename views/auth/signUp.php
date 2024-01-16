@@ -17,6 +17,7 @@
     <link href="/wiki/public/assets/remixicon/remixicon.css" rel="stylesheet">
     <link href="/wiki/public/assets/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="/wiki/public/css/style.css" rel="stylesheet">
+    <link href="/wiki/public/css/sign-login.css" rel="stylesheet">
 </head>
 
 <body>
@@ -51,60 +52,54 @@
                     <li><a class="nav-link scrollto" href="index#about">About</a></li>
                     <li><a class="nav-link scrollto" href="index#services">Services</a></li>
                     <li><a class="nav-link scrollto  " href="wikies">Wikies</a></li>
+                    <li><a class="nav-link scrollto  " href="signup">Get Started</a></li>
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
 
-            <div class="header-social-links d-flex align-items-center">
-                <a href="signup" class="btn-get-started scrollto active">Get Started</a>
-            </div>
+
 
         </div>
     </header>
     <section class="img-background p-100 m-100">
         <div class="container mt-5">
             <div class="row justify-content-center">
-                <div class="sign col-md-6">
-                    <form id="signupForm" action="registerUser" method="post" enctype="multipart/form-data" class="form-container p-5 rounded shadow-sm mx-auto">
-                        <h1 class="text-white text-3xl text-center mb-4">
-                            Sign Up
-                        </h1>
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <form id="signupForm" action="registerUser" method="post" enctype="multipart/form-data" class="form-container p-5 rounded shadow-sm">
+                        <h1 class="text-white  text-3xl text-center mb-4">Sign Up</h1>
                         <p class="text-white text-center">Create your account for free</p>
                         <div class="form">
-                            <div class="form-input mb-3 mx-auto">
+                            <div class="form-group text-center">
                                 <label for="input-file" class="cursor-pointer">
                                     <div class="profile">
-                                        <img id="image" class="rounded-full overflow-hidden m-auto bg-gray-300" src="/wiki/public/images/froggy.png" alt="Preview">
+                                        <img id="image" class="rounded-full" src="/wiki/public/images/froggy.png" alt="Preview">
                                     </div>
                                 </label>
                                 <input type="file" id="input-file" accept="image/jpg,image/png,image/jpeg" name="photo" style="display: none;">
                             </div>
 
-                            <div class="form-input mb-3 ">
+                            <div class="form-group mb-3">
                                 <input type="text" id="full-name" class="form-control" placeholder="Fullname" name="name" required>
                                 <span id="fullNameError" class="text-danger"></span>
                             </div>
 
-                            <div class="form-input mb-3 ">
+                            <div class="form-group mb-3">
                                 <input type="email" id="email" class="form-control" placeholder="name@flowbite.com" name="email" required>
                                 <span id="emailError" class="text-danger"></span>
                             </div>
 
-                            <div class="form-input mb-3 ">
+                            <div class="form-group mb-3">
                                 <input type="password" id="password" class="form-control" placeholder="password" name="password" required>
                                 <span id="passwordError" class="text-danger"></span>
                             </div>
 
-                            <div id="button-submit" class="form-input mb-3 mx-auto">
+                            <div class="form-group text-center">
                                 <button type="submit" name="signup" class="btn btn-success">Submit</button>
-                                <a href="signin" class="text-white ms-3" style="padding-top: 10%;">Already Have an account!!
-                                    <span class="text-primary">Login</span></a>
+                                <a href="signin" class="text-white mt-3 d-block">Already Have an account!! <span class="text-primary">Login</span></a>
                             </div>
                         </div>
-
                     </form>
-
                 </div>
             </div>
         </div>
@@ -113,6 +108,8 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/wiki/public/js/sign_login.js"></script>
+<script src="/wiki/public/js/main.js"></script>
+
 <script>
     let image = document.getElementById("image");
     let input = document.getElementById("input-file");

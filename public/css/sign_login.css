@@ -14,7 +14,6 @@ body {
     background-image: url(../../public/images/sign_log.jpg);
     background-size: cover;
     background-position: center;
-    height: 100vh;
     width: 100%;
     position: relative;
 }
@@ -46,3 +45,12 @@ body {
 .sign{
     width: 40% !important;
 }
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    .sign {
+        width: 100% !important;
+    }
+} 
